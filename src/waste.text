@@ -1,0 +1,131 @@
+
+// {/* <div className="overflow-auto">
+//   <div className="inline-block align-middle min-w-full h-screen p-2 border border-gray-200 rounded-md ">
+//     <table className="min-w-full">
+//       <thead>
+//         <tr className="border-b-2 divide-y divide-y-reverse divide-x divide-gray-200 bg-yellow-400 rounded-lg">
+//           <th scope="col" className="min-w-28 ">
+//             <div className="inline-flex w-full cursor-pointer">
+//               <button
+//                 type="button"
+//                 className="text-gray-800 font-medium text-sm text-start py-3 px-5"
+//               >
+//                 ID
+//               </button>
+//             </div>
+//           </th>
+//           <th scope="col" className="min-w-32">
+//             <div className="inline-flex w-full cursor-pointer">
+//               <button
+//                 type="button"
+//                 className="text-gray-800 font-medium text-sm text-start py-3 px-5"
+//               >
+//                 Name
+//               </button>
+//             </div>
+//           </th>
+//           {/* <th scope="col" className="min-w-32 ">
+//                             <div className="inline-flex w-full cursor-pointer">
+//                               <button
+//                                 type="button"
+//                                 className="text-gray-800 font-medium text-sm text-start py-3 px-5"
+//                               >
+//                                 Email
+//                               </button>
+//                             </div>
+//                           </th> */}
+//           <th scope="col" className="min-w-32">
+//             <div className="inline-flex w-full cursor-pointer">
+//               <button
+//                 type="button"
+//                 className="text-gray-800 font-medium text-sm text-start py-3 px-5"
+//               >
+//                 Contact
+//               </button>
+//             </div>
+//           </th>
+//           <th scope="col" className="min-w-32">
+//             <div className="inline-flex w-full cursor-pointer">
+//               <button
+//                 type="button"
+//                 className="text-gray-800 font-medium text-sm text-start py-3 px-5"
+//               >
+//                 Course
+//               </button>
+//             </div>
+//           </th>
+//           <th scope="col" className="min-w-32">
+//             <div className="inline-flex w-full cursor-pointer">
+//               <button
+//                 type="button"
+//                 className="text-gray-800 font-medium text-sm text-start py-3 px-5"
+//               >
+//                 Status
+//               </button>
+//             </div>
+//           </th>
+//           <th scope="col" className="min-w-32">
+//             <div className="inline-flex w-full cursor-pointer">
+//               <button
+//                 type="button"
+//                 className="text-gray-800 font-medium text-sm text-start py-3 px-5"
+//               >
+//                 Demo
+//               </button>
+//             </div>
+//           </th>
+//           <th scope="col" className="min-w-32">
+//             <div className="inline-flex w-full cursor-pointer">
+//               <button
+//                 type="button"
+//                 className="text-gray-800 font-medium text-sm text-start py-3 px-5"
+//               >
+//                 Action
+//               </button>
+//             </div>
+//           </th>
+//         </tr>
+//       </thead>
+//       <tbody className="overflow-auto h-full">
+//         {enquiries.map((enquiry, index) => {
+//           return (
+//             <tr
+//               className="border-b-2 divide- divide-y-reverse divide-x divide-gray-200 "
+//               key={index}
+//             >
+//               <td className="min-w-24 py-3 px-5 text-sm text-gray-600 text-start">
+//                 {enquiry.id}
+//               </td>
+//               <td className="min-w-32 py-3 px-5 text-sm text-gray-600 text-start">
+//                 {enquiry.name}
+//                 <span className="px-1">{`( ${enquiry.email} )`}</span>
+//               </td>
+//               <td className="min-w-32 py-3 px-5 text-sm text-gray-600 text-start">
+//                 {enquiry.contact}
+//               </td>
+//               <td className="min-w-32 py-3 px-5 text-sm text-gray-600 text-start">
+//                 {enquiry.course}
+//               </td>
+//               <td className="min-w-32 py-3 px-5 text-sm text-gray-600 text-start">
+//                 {enquiry.status}
+//               </td>
+//               <td className="min-w-32 py-3 px-5 text-sm text-gray-600 text-start">
+//                 {enquiry.demo}
+//               </td>
+//               <td className="min-w-32 py-3 px-5 text-sm text-gray-600 text-start">
+//                 <div className="options inline-flex justify-end items-center gap-x-2">
+//                   <button className="m-1 px-1 rounded-md text-blue-800">
+//                     <i className="fa-regular fa-pen-to-square text-xl p-1"></i>
+//                   </button>
+//                   <button className="m-1 px-1 rounded-md text-white bg-cyan-500">
+//                     <i className="fab fa-facebook text-xl p-1"></i>
+//                   </button>
+//                 </div>
+//               </td>
+//             </tr>
+//           );
+//         })}
+//       </tbody>
+//     </table>
+//   </div>
+// </div>; */}
