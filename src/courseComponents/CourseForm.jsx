@@ -44,6 +44,7 @@ const CourseForm = ( {toggleModel}) => {
                 <option value="Job Guaranted Program">
                   Job Guaranted Program
                 </option>
+                <option value="MNC Expert Program">MNC Expert Program</option>
                 <option value="Mastery Program">Mastery Program</option>
                 <option value="Foundation Program">Foundation Program</option>
                 <option value="IPB Program">IPB Program</option>
