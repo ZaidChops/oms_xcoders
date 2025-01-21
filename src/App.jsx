@@ -17,7 +17,7 @@ function App() {
       <Router>
         <Header />
         <main
-          className="content md:ml-64 mt-24 overflow-auto"
+          className="content md:ml-64 mt-28 overflow-auto"
           ref={contentRef}
         >
           <Routers />

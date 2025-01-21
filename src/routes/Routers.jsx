@@ -4,7 +4,7 @@ import Enquires from "../components/Enquires.jsx";
 import AddEnquiry from "../components/AddEnquiry.jsx";
 import CourseForm from "../courseComponents/CourseForm.jsx";
 import Courses from "../components/Courses.jsx";
-import showEnquiry from "../components/showEnquiry.jsx";
+import PreviewEnquiry from "../components/previewEnquiry.jsx";
 
 const Routers = () => {
   return (
@@ -15,7 +15,7 @@ const Routers = () => {
         <Route path="/addEnquires" component={AddEnquiry} />
         <Route path="/courses" component={Courses} />
         <Route path="/addCourses" component={CourseForm} />
-        <Route path="/showEnquires" component={showEnquiry} />
+        <Route path="/previewEnquires" component={PreviewEnquiry} />
       </Switch>
     </>
   );

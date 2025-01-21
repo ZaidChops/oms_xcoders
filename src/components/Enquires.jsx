@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AddEnquiry from "./AddEnquiry";
+import PreviewEnquiry from "./previewEnquiry";
 
 const Enquires = () => {
   const [enquiries, setEnquiries] = useState([
@@ -245,15 +246,16 @@ const Enquires = () => {
     },
   ]);
 
-  console.log(enquiries);
+  const [addModel, setAddModel] = useState(false);
+  const [prevModel, setPrevModel] = useState(false);
 
-  const [showModel, setShowModel] = useState(false);
+  const toggleAddModel = () => {
+    console.log("run toggleModel");
+    setAddModel(!addModel);
+  };
 
-  const toggleModel = () => setShowModel(!showModel);
-
-  const handleAdd = () => {
-    console.log("Popup form");
-    toggleModel();
+  const togglePrevModel = () => {
+    setPrevModel(!prevModel);
   };
 
   return (
@@ -273,21 +275,10 @@ const Enquires = () => {
             <button
               type="button"
               className="px-3 py-2 font-medium shadow-sm bg-yellow-400 text-gray-800 border rounded-lg gap-x-2 inline-flex items-center "
-              onClick={handleAdd}
+              onClick={toggleAddModel}
             >
               Add Enquiry
             </button>
-            {showModel && (
-              <div
-                className={`absolute -inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto `}
-                onClick={(e) => e.stopPropagation()} // Prevent closing modal on inner clicks
-              >
-                <AddEnquiry
-                  toggleModel={toggleModel}
-                  setEnquiries={setEnquiries}
-                />
-              </div>
-            )}
           </div>
         </div>
         <hr className="my-4" />
@@ -353,7 +344,7 @@ const Enquires = () => {
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-end text-xs font-medium text-gray-700 uppercase"
+                        className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase"
                       >
                         Status
                       </th>
@@ -404,6 +395,7 @@ const Enquires = () => {
                           <div className="flex items-center justify-between gap-2">
                             <button
                               type="button"
+                              onClick={togglePrevModel}
                               className="inline-block text-sm font-semibold rounded-lg border border-transparent text-yellow-400 hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none"
                             >
                               <i className="fa-solid fa-eye"></i>
@@ -432,6 +424,32 @@ const Enquires = () => {
           </div>
         </div>
       </div>
+      {addModel && (
+        <div
+          className={`fixed -inset-1 top-0 left-0 right-0 z-50 w-full  h-screen  transition-transform  shadow-sm rounded-e-md
+            bg-gray-600 bg-opacity-50 overflow-auto
+         ${toggleAddModel ? "translate-y-0" : "-translate-y-full"}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <AddEnquiry
+            toggleModel={toggleAddModel}
+            setEnquiries={setEnquiries}
+          />
+        </div>
+      )}
+
+      {prevModel && (
+        <div
+          className={`fixed -inset-1 top-0 left-0 right-0 z-50 w-full  h-screen  transition-transform  shadow-sm rounded-e-md
+          bg-gray-600 bg-opacity-50 overflow-auto
+       ${togglePrevModel ? "-translate-y-0" : "translate-y-full"}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <PreviewEnquiry
+            togglePrevModel={togglePrevModel}
+          />
+        </div>
+      )}
     </section>
   );
 };

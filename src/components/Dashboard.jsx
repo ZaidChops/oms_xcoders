@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   return (
     <section>
-      <div className="mx-2 p-4 border-2 border-gray-200 border-opacity-50 rounded-lg bg-white">
+      <div className="mx-2 mt-4 p-4 border-2 border-gray-200 border-opacity-50 rounded-lg bg-white">
         <div className="flex items-center justify-between gap-y-5">
           <h2 className="inline-block font-semibold">Dashboard</h2>
           {/* <div className="flex items-center justify-end">

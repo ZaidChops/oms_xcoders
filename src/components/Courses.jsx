@@ -167,17 +167,7 @@ const Courses = () => {
             >
               Add Course
             </button>
-            {showModel && (
-              <div
-                className="fixed inset-0 pt-20 bg-gray-50 bg-opacity-50 z-50"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <CourseForm
-                  toggleModel={toggleModel}
-                  setAllCourses={setAllCourses}
-                />
-              </div>
-            )}
+            
           </div>
         </div>
         <hr className="my-4" />
@@ -289,6 +279,18 @@ const Courses = () => {
           </div>
         </div>
       </div>
+
+      {showModel && (
+              <div
+                className="fixed inset-0 pt-20 bg-gray-50 bg-opacity-50 z-50"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <CourseForm
+                  toggleModel={toggleModel}
+                  setAllCourses={setAllCourses}
+                />
+              </div>
+            )}
     </section>
   );
 };
