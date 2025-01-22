@@ -1,10 +1,10 @@
 import { Switch, Route } from "react-router-dom";
 import Dashboard from "../components/Dashboard.jsx";
-import Enquires from "../components/Enquires.jsx";
-import AddEnquiry from "../components/AddEnquiry.jsx";
+import Enquires from "../components/Enquiry/Enquires.jsx";
+import AddEnquiry from "../components/Enquiry/AddEnquiry.jsx";
 import CourseForm from "../courseComponents/CourseForm.jsx";
-import Courses from "../components/Courses.jsx";
-import showEnquiry from "../components/showEnquiry.jsx";
+import Courses from "../courseComponents/Courses.jsx";
+// import showEnquiry from "../components/Enquiry/showEnquiry.jsx";
 
 const Routers = () => {
   return (
@@ -15,7 +15,7 @@ const Routers = () => {
         <Route path="/addEnquires" component={AddEnquiry} />
         <Route path="/courses" component={Courses} />
         <Route path="/addCourses" component={CourseForm} />
-        <Route path="/showEnquires" component={showEnquiry} />
+        {/* <Route path="/showEnquires" component={showEnquiry} /> */}
       </Switch>
     </>
   );
