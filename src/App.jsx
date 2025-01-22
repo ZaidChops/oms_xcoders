@@ -1,24 +1,24 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Routers from "./routes/Routers.jsx";
-import { useEffect, useRef } from "react";
+// import { useEffect, useRef } from "react";
 
 function App() {
-  const contentRef = useRef(null);
-  useEffect(() => {
-    // Scroll to the top of the content area when the component mounts
-    if (contentRef.current) {
-      contentRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
+  // const contentRef = useRef(null);
+  // useEffect(() => {
+  //   // Scroll to the top of the content area when the component mounts
+  //   if (contentRef.current) {
+  //     contentRef.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // }, []);
   return (
     <>
-      <div className="relative bg-gray-100">
+      <div className="relative">
       <Router>
         <Header />
         <main
-          className="content md:ml-64 mt-24 overflow-auto"
-          ref={contentRef}
+          className="content lg:ml-64 mt-20 overflow-auto"
+          // ref={contentRef}
         >
           <Routers />
         </main>
