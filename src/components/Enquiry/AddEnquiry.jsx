@@ -70,7 +70,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
   return (
     <>
       <section className="enquiry-form">
-        <div className={`max-w-4xl mx-auto mt-6 bg-white rounded-md shadow-md -translate-y-0 duration-1000`}>
+        <div className={`max-w-96 sm:max-w-xl md:max-w-4xl mx-auto mt-6 bg-white rounded-md shadow-md -translate-y-0 duration-1000`}>
           <div className="p-6 flex justify-between items-center gap-2 rounded-t-md bg-gradient-to-r from-orange-300 to-yellow-300 ">
             <h2 className="text-lg font-semibold text-gray-700 capitalize">{editUser ? "Edit Enquiry" : "Add Enquiry"}</h2>
             <button onClick={toggleModel} className="h-8 w-8 rounded-full text-white bg-red-500 shadow-md">X</button>

@@ -74,21 +74,19 @@ const SideBar = ({ navOpen, setNavOpen, sidebarRef }) => {
                     className={`flex items-center p-3 font-medium space-x-3 rounded-lg ${className}`}
                   >
                     <div className="flex items-center">
-                    <span className="px-2">{icon}</span>
-                    <span className="mx-3">{label}</span>
+                      <span className="px-2">{icon}</span>
+                      <span className="mx-3">{label}</span>
                     </div>
-                    
                   </NavLink>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="absolute -right-7 top-2 lg:-right-5" onClick={() => setNavOpen((prev) => !prev)}>
-
-            <button
-              
-              className="rounded bg-white py-2 text-gray-600 shadow-md transition hover:text-gray-600"
-            >
+          <div
+            className="absolute -right-7 top-2 lg:-right-5 lg:hidden"
+            onClick={() => setNavOpen((prev) => !prev)}
+          >
+            <button className="rounded bg-white py-2 text-gray-600 shadow-md transition hover:text-gray-600">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="size-5"

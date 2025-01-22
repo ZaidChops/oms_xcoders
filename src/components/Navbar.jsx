@@ -2,22 +2,24 @@ import { useEffect, useState, useRef } from "react";
 
 const Navbar = () => {
   const [toggleProfilePopup, setToggleProfilePopup] = useState(false);
-  const profileMenuRef = useRef(null)
+  const profileMenuRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target)
+      ) {
         setToggleProfilePopup(false);
         console.log("clicked outside");
       }
-      };
-  
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, []);
-  
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="">
@@ -32,7 +34,10 @@ const Navbar = () => {
             </a>
           </div>
 
-          <div ref={profileMenuRef} className="md:flex md:items-center md:gap-12">
+          <div
+            ref={profileMenuRef}
+            className="md:flex md:items-center md:gap-12"
+          >
             <div className="md:relative md:block">
               <button
                 type="button"
