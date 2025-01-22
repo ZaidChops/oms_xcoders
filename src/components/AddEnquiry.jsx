@@ -30,15 +30,24 @@ const AddEnquiry = ({ toggleModel }) => {
                 <label className="text-gray-600 text-sm" htmlFor="courseName">
                   Course Name<sup>*</sup>
                 </label>
-                <input
-                  id="courseName"
-                  name="courseName"
-                  type="text"
-                  required
-                  placeholder="course name"
-                  className="block w-full px-4 py-2 mt-2 text-gray-600 bg-white
-                 border border-gray-200 rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-20  focus:outline-none focus:ring no-arrows"
-                />
+                <select
+                  id="courseCategory"
+                  name="courseCategory"
+                  className="block w-full h-10 py-2 px-4 mt-2
+                 text-gray-600  border rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+                >
+                  <option defaultValue="Select Category">
+                    Select Course
+                  </option>
+                  <option value="Fullstack Development">
+                    Fullstack Development (MERN/ MEAN)
+                  </option>
+                  <option value="Frontend Development (ReactJS/ AngularJS)">Frontend Development (ReactJS/ AngularJS)</option>
+                  <option value="Backend Development (ExpressJS/NodeJS)">Backend Development (ExpressJS/NodeJS)</option>
+                  <option value="Data Analytics, Data Science & Business Analytics">Data Analytics, Data Science & Business Analytics</option>
+                  
+                  <option value="Digital Marketing">Digital Marketing</option>
+                </select>
               </div>
               <div>
                 <label className="text-gray-600" htmlFor="courseCategory">
@@ -160,7 +169,7 @@ const AddEnquiry = ({ toggleModel }) => {
                  border border-gray-200 rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-20  focus:outline-none focus:ring no-arrows"
                 />
               </div>
-              <div>
+              {/* <div>
                 <label className="text-gray-600" htmlFor="yearOfPassing">
                   Marks Obtained
                 </label>
@@ -172,7 +181,7 @@ const AddEnquiry = ({ toggleModel }) => {
                   className="block w-full px-4 py-2 mt-2 text-gray-600 bg-white
                  border border-gray-200 rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-20  focus:outline-none focus:ring no-arrows"
                 />
-              </div>
+              </div> */}
 
               <div>
                 <label className="text-gray-600" htmlFor="sourceOfEnquiry">
