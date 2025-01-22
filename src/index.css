@@ -21,7 +21,7 @@ input[type="number"] {
 }
 
 body {
-  @apply bg-gray-100;
+  @apply bg-gray-300;
 }
 
 /* Navbar */
@@ -31,15 +31,20 @@ body {
 }
 
 /* Sidebar */
-.nav-link {
+/* .nav-link {
   @apply flex items-center h-9 p-2
    /* text-sm font-medium */
-    tracking-wide text-black rounded-lg 
+    /* tracking-wide text-black rounded-lg  */
     /* hover:bg-[#FFD24C] */
      /* hover:text-white  */
-     hover:bg-gray-200
-     transition-colors;
+     /* hover:bg-gray-200 */
+     /* transition-colors; */
+/* }  */
+
+.nav-link {
+  @apply flex items-center my-2 p-2 space-x-3 rounded-lg duration-500
 }
+
 
 .nav-link.active {
   @apply bg-[#FFD24C] text-gray-800 
@@ -51,7 +56,7 @@ body {
 }
 
 .navbar {
-  /* background-image: radial-gradient(at 50% -15%, #ffffff, #eaf34f); */
+  background-image: radial-gradient(at 50% -15%, #FFFFFF, #EAF3FF);
 }
 
 .content {
