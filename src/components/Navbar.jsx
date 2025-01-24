@@ -11,7 +11,7 @@ const Navbar = () => {
         !profileMenuRef.current.contains(event.target)
       ) {
         setToggleProfilePopup(false);
-        console.log("clicked outside");
+        // console.log("clicked outside");
       }
     };
 
