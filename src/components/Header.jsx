@@ -11,7 +11,7 @@ useEffect(() => {
   const handleClickOutside = (event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
       setNavOpen(false);
-      console.log("clicked outside");
+      // console.log("clicked outside");
     }
   };
 
