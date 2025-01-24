@@ -9,7 +9,10 @@ const EnquirySlice = createSlice({
   name: "enquiryData",
   initialState,
   reducers: {
+
+    
     addData: (state, action) => {
+      // state.allData = [...state.allData, action.payload];
       state.allData.push(action.payload);
     },
     showData:(state,action)=>
@@ -29,12 +32,12 @@ const EnquirySlice = createSlice({
       state.editUser = { data: "", isEdit: false };
     },
 
-    loadData: (state) => {
-      const data = JSON.parse(localStorage.getItem("enquiryData")) || [];
-      state.allData = data;
-    },
+    // loadData: (state) => {
+    //   const data = JSON.parse(localStorage.getItem("enquiryData")) || [];
+    //   state.allData = data;
+    // },
   },
 });
 
-export const { addData, updateUser, resetEditUser, setEditUser,showData, loadData } = EnquirySlice.actions;
+export const { addData, updateUser, resetEditUser, setEditUser,showData} = EnquirySlice.actions;
 export default EnquirySlice.reducer;

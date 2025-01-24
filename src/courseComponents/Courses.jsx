@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-// import { updateUser, addData } from "../redux-config/CourseSlice";
 import CourseForm from "./CourseForm.jsx";
 
 const Courses = () => {
@@ -128,6 +127,7 @@ const Courses = () => {
                           <button
                                type="button"
                             className="inline-block text-base font-semibold mr-6 rounded-lg border border-transparent text-yellow-400 hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none "
+                            // onClick={() => handleEditCourse(course)}
                             >  
                               <i className="fa-solid fa-eye"></i>
                             </button>
