@@ -277,7 +277,7 @@ import { useState, useEffect } from "react";
                     </label>
                     <select
                       id="demoClass"
-                      name="demoClass"
+                      name="demo"
                       value={formData.demo} onChange={handleChange}
                       className="block w-full h-10 py-2 px-4 mt-2 text-gray-600  border rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                     >

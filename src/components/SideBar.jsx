@@ -51,7 +51,7 @@ const SideBar = ({ navOpen, setNavOpen, sidebarRef }) => {
         <div
           ref={sidebarRef}
           className={`fixed top-0 left- 0 h-screen p-2 space-y-2 w-64 inset-y-0 z-30 transition-transform text-black bg-white lg:translate-x-0 -translate-x-full rounded-[14px}
-            shadow-custom md:${navOpen ? "translate-x-0" : ""} `}
+            shadow-custom sm:${!navOpen ? "translate-x-0" : ""} `}
         >
           <div className="block mx-auto px-2 h-16">
             <img
