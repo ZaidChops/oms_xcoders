@@ -7,26 +7,30 @@ const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
   const sidebarRef = useRef(null);
 
-useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-      setNavOpen(false);
-      // console.log("clicked outside");
-    }
-  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setNavOpen(false);
+        console.log("clicked outside");
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
       <header>
         <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
-        <SideBar navOpen={navOpen} setNavOpen={setNavOpen} sidebarRef={sidebarRef} />
+        <SideBar
+          navOpen={navOpen}
+          setNavOpen={setNavOpen}
+          sidebarRef={sidebarRef}
+        />
       </header>
     </>
   );
