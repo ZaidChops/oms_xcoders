@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 const SideBar = ({ navOpen, setNavOpen, sidebarRef }) => {
   const lastActiveLink = useRef(null);
 
+  // console.log(navOpen)
+
   const navItems = [
     {
       label: "Dashboard",
@@ -51,7 +53,7 @@ const SideBar = ({ navOpen, setNavOpen, sidebarRef }) => {
         <div
           ref={sidebarRef}
           className={`fixed top-0 left- 0 h-screen p-2 space-y-2 w-64 inset-y-0 z-30 transition-transform text-black bg-white lg:translate-x-0 -translate-x-full rounded-[14px}
-            shadow-custom md:${navOpen ? "translate-x-0" : ""} `}
+            shadow-custom ${navOpen ? "translate-x-0" : ""} `}
         >
           <div className="block mx-auto px-2 h-16">
             <img
@@ -83,24 +85,11 @@ const SideBar = ({ navOpen, setNavOpen, sidebarRef }) => {
             </ul>
           </div>
           <div
-            className="absolute -right-7 top-2 lg:-right-5 lg:hidden"
+            className={`absolute -right-16 top-3 lg:-right-5 lg:hidden`}
             onClick={() => setNavOpen((prev) => !prev)}
           >
-            <button className="rounded bg-white py-2 text-gray-600 shadow-md transition hover:text-gray-600">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="size-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+            <button className="rounded w-6 h-6 text-gray-800 transition hover:text-gray-800 hover:scale-110">
+            <i className="fa-solid fa-bars text-3xl"></i>
             </button>
           </div>
         </div>
