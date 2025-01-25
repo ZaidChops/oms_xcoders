@@ -94,6 +94,9 @@ const CourseForm = ({ toggleModel, editCourse }) => {
                 <option value="MNC Expert Program">MNC Expert Program</option>
                 <option value="Mastery Program">Mastery Program</option>
                 <option value="Foundation Program">Foundation Program</option>
+                <option value="Crash Courses Program">
+                  Crash Courses Program
+                </option>
               </select>
             </div>
 
@@ -144,7 +147,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
             </button>
           </div>
           {/* <hr /> */}
-{/* 
+          {/* 
           <div className="flex justify-end mt-6 pb-3">
             <div className="flex justify-between items-center gap-2">
               <button
