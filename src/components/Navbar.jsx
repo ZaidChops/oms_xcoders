@@ -25,7 +25,7 @@ const Navbar = () => {
     <nav className="">
       <div className="navbar fixed top-0 left-0 right-0 lg:ml-60 z-20 max-w-screen-full px-8 sm:px-8 lg:px-12">
         <div className="flex h-20 items-center justify-between">
-          <div className="flex-1 md:flex md:items-center md:gap-16 sm:px-16">
+          <div className="flex-1 flex items-center gap-4 lg:px-2 md:px-10 px-10">
             <a className="block text-gray-900" href="#">
               <span className="sr-only">Enquiry</span>
               <h2 className="block font-semibold text-xl p-2">

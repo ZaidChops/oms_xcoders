@@ -33,10 +33,9 @@ const Courses = () => {
       const response = await axios.get("http://localhost:9090/course");
       console.log(response.data);
       const data = response.data.courses ||[];
-      // const courses = Array.isArray(response.data) ? response.data : [];
-      // dispatch(showData(courses));
+
       dispatch(showData(data));
-      // dispatch(showData({...data}));
+
 
     } catch (error) {
       console.error("Error fetching courses:", error);
