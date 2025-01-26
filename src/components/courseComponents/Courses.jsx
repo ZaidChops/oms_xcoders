@@ -110,16 +110,16 @@ const Courses = () => {
                             {course.courseId}
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-gray-800">
-                            {course.name}
+                            {course.courseName}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800">
-                            {course.category}
+                            {course.courseCategory}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800">
                             {course.courseDuration}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800">
-                            {course.fee}
+                            {course.courseFee}
                           </td>
                           <td className="px-6 py-4 text-end text-sm font-medium">
                             <div className="flex items-center">
