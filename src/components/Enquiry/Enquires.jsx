@@ -179,7 +179,7 @@ const Enquires = () => {
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                             {enquiry.demo}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <div className="flex items-center gap-2">
                               <button
                                 type="button"
