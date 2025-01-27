@@ -1,17 +1,16 @@
-import { useEffect, useState, useRef } from "react";
 
-const Navbar = () => {
+import { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
+
+const Navbar = ({ selectedPage }) => {
   const [toggleProfilePopup, setToggleProfilePopup] = useState(false);
   const profileMenuRef = useRef(null);
+  const history = useHistory();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        profileMenuRef.current &&
-        !profileMenuRef.current.contains(event.target)
-      ) {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
         setToggleProfilePopup(false);
-        // console.log("clicked outside");
       }
     };
 
@@ -21,23 +20,23 @@ const Navbar = () => {
     };
   }, []);
 
+  const handleLogout = () => {
+    console.log("Logging out...");
+    history.push("/login");
+  };
+
   return (
     <nav className="">
       <div className="navbar fixed top-0 left-0 right-0 lg:ml-60 z-20 max-w-screen-full px-8 sm:px-8 lg:px-12">
         <div className="flex h-20 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-16 sm:px-16">
             <a className="block text-teal-600" href="#">
-              <span className="sr-only">Enquiry</span>
-              <h2 className="block font-semibold text-xl p-2">
-                Student Enquiries
-              </h2>
+              <span className="sr-only">{selectedPage}</span>
+              <h2 className="block font-semibold text-xl p-2">{selectedPage}</h2>
             </a>
           </div>
 
-          <div
-            ref={profileMenuRef}
-            className="md:flex md:items-center md:gap-12"
-          >
+          <div ref={profileMenuRef} className="md:flex md:items-center md:gap-12">
             <div className="md:relative md:block">
               <button
                 type="button"
@@ -48,7 +47,7 @@ const Navbar = () => {
 
                 <img
                   src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt=""
+                  alt="Profile"
                   className="size-10 object-cover"
                 />
               </button>
@@ -56,7 +55,7 @@ const Navbar = () => {
               <div
                 className={`absolute end-0 z-10 mt-0.5 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg ${
                   !toggleProfilePopup ? "hidden" : ""
-                } `}
+                }`}
                 role="menu"
               >
                 <div className="p-2">
@@ -64,6 +63,7 @@ const Navbar = () => {
                     href="#"
                     className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                     role="menuitem"
+                    onClick={() => history.push("/profile")}
                   >
                     My profile
                   </a>
@@ -72,6 +72,7 @@ const Navbar = () => {
                     href="#"
                     className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                     role="menuitem"
+                    onClick={() => history.push("/team-settings")}
                   >
                     Team settings
                   </a>
@@ -82,6 +83,7 @@ const Navbar = () => {
                     type="button"
                     className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
                     role="menuitem"
+                    onClick={handleLogout}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -110,13 +112,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-
-
-
-
-
-

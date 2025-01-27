@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
 import SideBar from "./SideBar";
-useState;
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
+  const [selectedPage, setSelectedPage] = useState("Student Enquiries"); 
   const sidebarRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
         setNavOpen(false);
-        console.log("clicked outside");
       }
     };
 
@@ -25,12 +24,17 @@ const Header = () => {
   return (
     <>
       <header>
-        <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
+        <Navbar
+          navOpen={navOpen}
+          setNavOpen={setNavOpen}
+          selectedPage={selectedPage}
+        />
         <SideBar
           navOpen={navOpen}
           setNavOpen={setNavOpen}
           sidebarRef={sidebarRef}
-        />
+          setSelectedPage={setSelectedPage} 
+                  />
       </header>
     </>
   );
