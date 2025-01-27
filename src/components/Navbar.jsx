@@ -20,11 +20,7 @@ const Navbar = ({ selectedPage }) => {
     };
   }, []);
 
-  const handleLogout = () => {
-    console.log("Logging out...");
-    history.push("/login");
-  };
-
+  
   return (
     <nav className="">
       <div className="navbar fixed top-0 left-0 right-0 lg:ml-60 z-20 max-w-screen-full px-8 sm:px-8 lg:px-12">
@@ -84,7 +80,7 @@ const Navbar = ({ selectedPage }) => {
                     type="button"
                     className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
                     role="menuitem"
-                    onClick={handleLogout}
+                  
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
