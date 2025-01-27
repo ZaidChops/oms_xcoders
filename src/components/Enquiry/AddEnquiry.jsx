@@ -42,13 +42,13 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
       if (editUser) {
        
         await axios.put(
-          `http://localhost:9090/enquiry/${editUser._id}`,
+          `http://localhost:9090/api/v1/enquiry/${editUser._id}`,
           formData
         );
         dispatch(updateUser({ ...formData, id: editUser._id }));
       } else {
         const response = await axios.post(
-          "http://localhost:9090/enquiry/enquiry-form",
+          "http://localhost:9090/api/v1/enquiry/enquiry-form",
           formData
         );
         console.log("API Response:", response.data);
