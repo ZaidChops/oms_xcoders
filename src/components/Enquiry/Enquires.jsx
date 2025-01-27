@@ -217,7 +217,7 @@ const Enquires = () => {
         </div>
       </div>
 
-      {/* Preview Modal: Positioned above the table */}
+     
       {showPreview && (
         <div className="absolute -inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto">
           <PreviewEnquiry togglePrevModel={togglePreview} data={previewData} />

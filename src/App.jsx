@@ -4,13 +4,7 @@ import Routers from "./routes/Routers.jsx";
 // import { useEffect, useRef } from "react";
 
 function App() {
-  // const contentRef = useRef(null);
-  // useEffect(() => {
-  //   // Scroll to the top of the content area when the component mounts
-  //   if (contentRef.current) {
-  //     contentRef.current.scrollIntoView({ behavior: "smooth" });
-  //   }
-  // }, []);
+
   return (
     <>
       <div className="relative">
@@ -18,7 +12,7 @@ function App() {
         <Header />
         <main
           className="content lg:ml-64 mt-20 overflow-auto"
-          // ref={contentRef}
+         
         >
           <Routers />
         </main>
