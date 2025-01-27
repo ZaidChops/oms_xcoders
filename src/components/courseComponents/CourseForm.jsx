@@ -31,13 +31,13 @@ const CourseForm = ({ toggleModel, editCourse }) => {
     try {
       if (editCourse) {
         await axios.put(
-          `http://localhost:9090/course/${editCourse.courseId}`,
+          `http://localhost:9090/api/v1/course/${editCourse.courseId}`,
           formData
         );
         dispatch(updateUser({ ...formData, id: editCourse.courseId }));
       } else {
         const response = await axios.post(
-          "http://localhost:9090/course",
+          "http://localhost:9090/api/v1/course",
           formData
         );
         console.log("API Response:", response.data);
@@ -75,7 +75,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
                 id="courseName"
                 name="courseName"
                 placeholder="enter course name"
-                value={formData.name}
+                value={formData.courseName}
                 onChange={handleChange}
                 className="block w-full px-4 py-2 mt-2 bg-white border border-gray-200 rounded-md"
               />
