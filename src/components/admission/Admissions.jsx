@@ -1,5 +1,27 @@
+import { useState } from "react";
+import { PreviewAdmission } from "./PreviewAdmission";
+import { AdmissionForm } from "./AdmissionForm";
 
 export const Admissions = () => {
+  const [showModel, setShowModel] = useState(false);
+  //   const [editUser, setEditUser] = useState(null);
+  //   const [previewData, setPreviewData] = useState(null);
+  const [showPreview, setShowPreview] = useState(false);
+
+  const togglePreview = () => setShowPreview(!showPreview);
+
+  const toggleModel = () => {
+    setShowModel(!showModel);
+    // if (showModel) {
+    //   fetchEnquiries();
+    // }
+  };
+
+  const handlePreview = (enquiry) => {
+    // setPreviewData(enquiry);
+    togglePreview();
+  };
+
   return (
     <section>
       <div className="mx-4 my-2 p-4 flex flex-col border-2 shadow-sm bg-white border-gray-200 border-opacity-50 rounded-lg">
@@ -28,7 +50,7 @@ export const Admissions = () => {
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* <AddEnquiry toggleModel={toggleModel} editUser={editUser} /> */}
-                <AddAdmission/>
+                <AdmissionForm toggleModel={toggleModel} />
               </div>
             )}
           </div>
@@ -39,7 +61,7 @@ export const Admissions = () => {
           <div className="overflow-x-auto">
             <div className="min-w-full inline-block align-middle">
               <div className="min-w-full max-h-[584px] border rounded-lg overflow-y-auto">
-              <table className="divide-y divide-gray-200 min-w-full">
+                <table className="divide-y divide-gray-200 min-w-full">
                   <thead className="bg-yellow-400">
                     <tr className="divide-x divide-gray-200">
                       <th
@@ -171,9 +193,12 @@ export const Admissions = () => {
       {/* Preview Modal: Positioned above the table */}
       {showPreview && (
         <div className="absolute -inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto">
-          <PreviewEnquiry togglePrevModel={togglePreview} data={previewData} />
+          <PreviewAdmission
+            togglePrevModel={togglePreview}
+            //   data={previewData}
+          />
         </div>
       )}
     </section>
-  )
-}
+  );
+};

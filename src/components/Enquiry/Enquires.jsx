@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddEnquiry from "./AddEnquiry";
@@ -89,7 +88,7 @@ const Enquires = () => {
           <div className="overflow-x-auto">
             <div className="min-w-full inline-block align-middle">
               <div className="min-w-full max-h-[584px] border rounded-lg overflow-y-auto">
-              <table className="divide-y divide-gray-200 min-w-full">
+                <table className="divide-y divide-gray-200 min-w-full">
                   <thead className="bg-yellow-400">
                     <tr className="divide-x divide-gray-200">
                       <th

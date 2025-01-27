@@ -33,10 +33,9 @@ const Courses = () => {
       const response = await axios.get("http://localhost:9090/course");
       console.log(response.data);
       const data = response.data.courses ||[];
-      // const courses = Array.isArray(response.data) ? response.data : [];
-      // dispatch(showData(courses));
+
       dispatch(showData(data));
-      // dispatch(showData({...data}));
+
 
     } catch (error) {
       console.error("Error fetching courses:", error);
@@ -111,16 +110,16 @@ const Courses = () => {
                             {course.courseId}
                           </td>
                           <td className="px-6 py-4 text-sm font-medium text-gray-800">
-                            {course.name}
+                            {course.courseName}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800">
-                            {course.category}
+                            {course.courseCategory}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800">
                             {course.courseDuration}
                           </td>
                           <td className="px-6 py-4 text-sm text-gray-800">
-                            {course.fee}
+                            {course.courseFee}
                           </td>
                           <td className="px-6 py-4 text-end text-sm font-medium">
                             <div className="flex items-center">

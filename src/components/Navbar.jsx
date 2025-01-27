@@ -29,6 +29,7 @@ const Navbar = ({ selectedPage }) => {
     <nav className="">
       <div className="navbar fixed top-0 left-0 right-0 lg:ml-60 z-20 max-w-screen-full px-8 sm:px-8 lg:px-12">
         <div className="flex h-20 items-center justify-between">
+
           <div className="flex-1 md:flex md:items-center md:gap-16 sm:px-16">
             <a className="block text-teal-600" href="#">
               <span className="sr-only">{selectedPage}</span>
