@@ -110,7 +110,6 @@ const CourseForm = ({ toggleModel, editCourse }) => {
                   type="number"
                   id="courseFees"
                   name="courseFees"
-                  disabled
                   placeholder="enter course fees"
                   value={formData.courseFees}
                   onChange={handleChange}
