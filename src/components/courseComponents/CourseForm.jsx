@@ -5,9 +5,10 @@ import axios from "axios";
 
 const CourseForm = ({ toggleModel, editCourse }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    category: "",
-    fee: "",
+    courseName: "",
+    courseCategory: "",
+    courseFees: "",
+    courseDiscount: "",
     courseDuration: "",
   });
 
@@ -68,10 +69,11 @@ const CourseForm = ({ toggleModel, editCourse }) => {
         <form className="px-6 py-4" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-6 text-gray-500 sm:grid-cols-1 p-1 ">
             <div>
-              <label>Course Name</label>
+              <label htmlFor="courseName">Course Name</label>
               <input
                 type="text"
-                name="name"
+                id="courseName"
+                name="courseName"
                 placeholder="enter course name"
                 value={formData.name}
                 onChange={handleChange}
@@ -80,10 +82,11 @@ const CourseForm = ({ toggleModel, editCourse }) => {
             </div>
 
             <div>
-              <label>Course Category</label>
+              <label htmlFor="courseCategory">Course Category</label>
               <select
-                value={formData.category}
-                name="category"
+                value={formData.courseCategory}
+                id="courseCategory"
+                name="courseCategory"
                 onChange={handleChange}
                 className="block w-full h-10 py-2 px-4 mt-2 text-gray-700 border rounded-md"
               >
@@ -94,38 +97,44 @@ const CourseForm = ({ toggleModel, editCourse }) => {
                 <option value="MNC Expert Program">MNC Expert Program</option>
                 <option value="Mastery Program">Mastery Program</option>
                 <option value="Foundation Program">Foundation Program</option>
+                <option value="Crash Courses Program">
+                  Crash Courses Program
+                </option>
               </select>
             </div>
 
             <div className="flex justify-between gap-2 ">
               <div>
-                <label>Course Fee</label>
+                <label htmlFor="courseFees">Course Fees</label>
                 <input
                   type="number"
-                  name="fee"
-                  placeholder="enter course fee"
-                  value={formData.fee}
+                  id="courseFees"
+                  name="courseFees"
+                  placeholder="enter course fees"
+                  value={formData.courseFees}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 mt-2 bg-white border border-gray-200 rounded-md"
                 />
               </div>
 
               <div>
-                <label>Course Fee Discount</label>
+                <label htmlFor="courseDiscount">Course Fees Discount</label>
                 <input
                   type="number"
-                  name="fee"
-                  placeholder="enter fee discount"
-                  value={formData.discount}
+                  id="courseDiscount"
+                  name="courseDiscount"
+                  placeholder="enter fees discount"
+                  value={formData.courseDiscount}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 mt-2 bg-white border border-gray-200 rounded-md"
                 />
               </div>
             </div>
             <div>
-              <label>Duration</label>
+              <label htmlFor="courseDuration">Course Duration</label>
               <input
                 type="text"
+                id="courseDuration"
                 name="courseDuration"
                 placeholder="enter course duration"
                 value={formData.courseDuration}
@@ -144,7 +153,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
             </button>
           </div>
           {/* <hr /> */}
-{/* 
+          {/* 
           <div className="flex justify-end mt-6 pb-3">
             <div className="flex justify-between items-center gap-2">
               <button
