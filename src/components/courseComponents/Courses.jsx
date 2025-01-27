@@ -30,7 +30,7 @@ const Courses = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/course");
+      const response = await axios.get("http://localhost:9090/course");
       console.log(response.data);
       const data = response.data.courses ||[];
 

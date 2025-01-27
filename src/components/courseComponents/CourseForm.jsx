@@ -31,13 +31,13 @@ const CourseForm = ({ toggleModel, editCourse }) => {
     try {
       if (editCourse) {
         await axios.put(
-          `http://localhost:8080/course/${editCourse.courseId}`,
+          `http://localhost:9090/course/${editCourse.courseId}`,
           formData
         );
         dispatch(updateUser({ ...formData, id: editCourse.courseId }));
       } else {
         const response = await axios.post(
-          "http://localhost:8080/course",
+          "http://localhost:9090/course",
           formData
         );
         console.log("API Response:", response.data);

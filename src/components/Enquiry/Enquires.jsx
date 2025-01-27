@@ -40,7 +40,7 @@ const Enquires = () => {
 
   const fetchEnquiries = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/enquiry/list");
+      const response = await axios.get("http://localhost:9090/enquiry/list");
       const data = response.data.enquiry || [];
       dispatch(showData(data));
     } catch (error) {
