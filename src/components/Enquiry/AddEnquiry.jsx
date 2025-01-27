@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addData, updateUser } from "../../redux-config/EnquirySlice";
+import { addData, updateData } from "../../redux-config/EnquirySlice";
 import axios from "axios";
 
 const AddEnquiry = ({ toggleModel, editUser }) => {
@@ -45,7 +45,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
           `http://localhost:9090/api/v1/enquiry/${editUser._id}`,
           formData
         );
-        dispatch(updateUser({ ...formData, id: editUser._id }));
+        dispatch(updateData({ ...formData, id: editUser._id }));
       } else {
         const response = await axios.post(
           "http://localhost:9090/api/v1/enquiry/enquiry-form",

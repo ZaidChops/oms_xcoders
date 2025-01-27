@@ -15,17 +15,20 @@ const CourseSlice = createSlice({
     showData: (state, action) => {
       state.allData=action.payload;
     },
-    updateUser: (state, action) => {
+    updateData: (state, action) => {
       const index = state.allData.findIndex((item) => item.id === action.payload.id);
       if (index !== -1) {
         state.allData[index] = action.payload;
       }
     },
+    deleteData: (state, action) => {
+      state.allData = state.allData.filter((item) => item.id !== action.payload);
+    }
    
   },
 });
 
-export const { addData, updateUser, showData } = CourseSlice.actions;
+export const { addData, updateData, showData, deleteData } = CourseSlice.actions;
 
 export default CourseSlice.reducer;
 
