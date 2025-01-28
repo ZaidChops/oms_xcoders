@@ -1,27 +1,36 @@
-
 import { NavLink } from "react-router-dom";
 
 const SideBar = ({ navOpen, setNavOpen, sidebarRef, setSelectedPage }) => {
   const navItems = [
     {
       label: "Dashboard",
+      icon: <i className="fa-brands fa-delicious"></i>,
       link: "/dashboard",
+      className: "nav-link",
     },
     {
       label: "Enquires",
+      icon: <i className="fa-solid fa-user-pen"></i>,
       link: "/enquires",
+      className: "nav-link",
     },
     {
       label: "Courses",
+      icon: <i className="fa-solid fa-book-open"></i>,
       link: "/courses",
+      className: "nav-link",
     },
     {
       label: "Trainers",
+      icon: <i className="fa-solid fa-chalkboard-user"></i>,
       link: "/trainers",
+      className: "nav-link",
     },
     {
       label: "Admissions",
+      icon: <i className="fa-solid fa-binoculars"></i>,
       link: "/admissions",
+      className: "nav-link",
     },
   ];
 
@@ -45,17 +54,20 @@ const SideBar = ({ navOpen, setNavOpen, sidebarRef, setSelectedPage }) => {
 
         <div className="divide-y p-2">
           <ul className="pt-2 pb-4 space-y-1 text-base">
-            {navItems.map(({ label, link }, key) => (
-              <li key={key} className="">
+            {navItems.map(({ label, link, icon, className }, key) => (
+              <li key={key}>
                 <NavLink
+                  className={className}
                   to={link}
                   onClick={() => {
-                    setSelectedPage(label); 
-                    setNavOpen(false);                   }}
-                  className="flex items-center p-3 font-medium space-x-3 rounded-lg nav-link"
+                    setSelectedPage(label);
+                    setNavOpen(false);
+                  }}
+                  // className="flex items-center p-3 font-medium space-x-3 rounded-lg nav-link"
                 >
                   <div className="flex items-center">
-                    <span className="mx-3">{label}</span>
+                    <span className="px-1">{icon}</span>
+                    <span className="mx-3"> {label}</span>
                   </div>
                 </NavLink>
               </li>
