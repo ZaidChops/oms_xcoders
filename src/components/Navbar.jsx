@@ -26,7 +26,7 @@ const Navbar = ({ selectedPage }) => {
         <div className="flex h-20 items-center justify-between">
 
           <div className="flex-1 md:flex md:items-center md:gap-16 sm:px-16">
-            <a className="block text-teal-600" href="#">
+            <a className="block text-gray-800" href="#">
               <span className="sr-only">{selectedPage}</span>
               <h2 className="block font-semibold text-xl p-2">{selectedPage}</h2>
             </a>
