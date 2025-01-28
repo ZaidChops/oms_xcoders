@@ -1,11 +1,10 @@
 
 import { useState, useEffect, useRef } from "react";
-import { useHistory } from "react-router-dom";
 
 const Navbar = ({ selectedPage }) => {
   const [toggleProfilePopup, setToggleProfilePopup] = useState(false);
   const profileMenuRef = useRef(null);
-  const history = useHistory();
+ 
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -23,7 +22,7 @@ const Navbar = ({ selectedPage }) => {
   
   return (
     <nav className="">
-      <div className="navbar fixed top-0 left-0 right-0 lg:ml-60 z-20 max-w-screen-full px-8 sm:px-8 lg:px-12">
+      <div className="navbar fixed top-0 left-0 right-0 lg:ml-60 z-20 max-w-screen-full px-8 pl-12 sm:px-6 lg:px-4">
         <div className="flex h-20 items-center justify-between">
 
           <div className="flex-1 md:flex md:items-center md:gap-16 sm:px-16">
