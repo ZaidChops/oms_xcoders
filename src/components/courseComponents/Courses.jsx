@@ -3,13 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import CourseForm from "./CourseForm.jsx";
 import { deleteData, showData } from "../../redux-config/CourseSlice";
 import axios from "axios";
+import { Popup } from "../popup.jsx";
 
 const Courses = () => {
   const dispatch = useDispatch();
   const allCourses = useSelector((state) => state.courseData.allData);
-  console.log("Current data:", allCourses);
+  // console.log("Current data:", allCourses);
   const [showModel, setShowModel] = useState(false);
   const [editCourse, setEditCourse] = useState(null);
+  const [togglePopup, setTogglePopup] = useState(false);
+  const [deleteId, setDeleteId] = useState("");
 
   const toggleModel = () => {
     setShowModel(!showModel);
@@ -28,6 +31,11 @@ const Courses = () => {
     toggleModel();
   };
 
+  const deletePopup = (id) => {
+    setTogglePopup(!togglePopup);
+    setDeleteId(id);
+  };
+
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
@@ -39,7 +47,7 @@ const Courses = () => {
       fetchCourses();
       console.log("Course deleted successfully");
     } catch (error) {
-      console.log(error); 
+      console.log(error);
     }
   };
 
@@ -106,11 +114,16 @@ const Courses = () => {
                         Course Fees
                       </th>
                       <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
+                        Course Discount
+                      </th>
+                      <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         Action
                       </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 table-scroll">
+                    {console.log(allCourses.map(course => {console.log(course)}))}
+
                     {allCourses.length > 0 ? (
                       allCourses.map((course, index) => (
                         <tr key={index}>
@@ -129,6 +142,9 @@ const Courses = () => {
                           <td className="px-3 py-2 text-sm text-gray-800">
                             {course.courseFee}
                           </td>
+                          <td className="px-3 py-2 text-sm text-gray-800">
+                            {course.courseDiscount}
+                          </td>
                           <td className="px-3 py-2 whitespace-nowrap text-sm font-medium">
                             <div className="flex items-center gap-2 ">
                               <button
@@ -142,7 +158,7 @@ const Courses = () => {
                               <button
                                 type="button"
                                 className="inline-block px-2.5 py-1 text-base font-semibold mr-6 rounded-lg border border-transparent text-gray-800 bg-yellow-400 hover:text-gray-600 focus:outline-none"
-                                onClick={() => handleDelete(course.courseId)}
+                                onClick={() => deletePopup(course.courseId)}
                               >
                                 <i className="fa-solid fa-trash"></i> delete
                               </button>
@@ -167,6 +183,19 @@ const Courses = () => {
           </div>
         </div>
       </div>
+      {togglePopup && (
+        <div
+          className="fixed inset-0 pt-20 bg-gray-50 bg-opacity-50 z-50"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Popup
+            deletePopup={deletePopup}
+            setDeleteId={setDeleteId}
+            handleDelete={handleDelete}
+            deleteId={deleteId}
+          />
+        </div>
+      )}
     </section>
   );
 };
