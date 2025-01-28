@@ -150,7 +150,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
               className="w-full px-12 py-2.5 leading-5 text-black/75 font-medium transition-colors duration-300 transform bg-gradient-to-r rounded-md bg-yellow-400 hover:bg-yellow-400 focus:outline-none focus:bg-yellow-300"
               onClick={handleSubmit}
             >
-              Add Course
+              {editCourse ? "Edit Course" : "Add Course"}
             </button>
           </div>
           {/* <hr /> */}

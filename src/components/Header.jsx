@@ -4,7 +4,7 @@ import SideBar from "./SideBar";
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
-  const [selectedPage, setSelectedPage] = useState("Student Enquiries"); 
+  const [selectedPage, setSelectedPage] = useState("Dashboard"); 
   const sidebarRef = useRef(null);
 
   useEffect(() => {

@@ -9,7 +9,7 @@ const Routers = () => {
   return (
     <>
       <Switch>
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/" component={Dashboard} />
         <Route path="/enquires" component={Enquires} />
         <Route path="/courses" component={Courses} />
         <Route path="/trainers" component={Trainers} />
