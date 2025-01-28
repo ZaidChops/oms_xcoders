@@ -1,15 +1,15 @@
-
 import { useState, useEffect, useRef } from "react";
-import { useHistory } from "react-router-dom";
 
 const Navbar = ({ selectedPage }) => {
   const [toggleProfilePopup, setToggleProfilePopup] = useState(false);
   const profileMenuRef = useRef(null);
-  const history = useHistory();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target)
+      ) {
         setToggleProfilePopup(false);
       }
     };
@@ -20,24 +20,23 @@ const Navbar = ({ selectedPage }) => {
     };
   }, []);
 
-  const handleLogout = () => {
-    console.log("Logging out...");
-    history.push("/login");
-  };
-
   return (
     <nav className="">
-      <div className="navbar fixed top-0 left-0 right-0 lg:ml-60 z-20 max-w-screen-full px-8 sm:px-8 lg:px-12">
+      <div className="navbar fixed top-0 left-0 right-0 lg:ml-60 z-20 max-w-screen-full px-8 pl-12 sm:px-6 lg:px-4">
         <div className="flex h-20 items-center justify-between">
-
-          <div className="flex-1 md:flex md:items-center md:gap-16 sm:px-16">
+          <div className=" md:flex md:items-center md:gap-16 sm:px-16 px-8">
             <a className="block text-teal-600" href="#">
               <span className="sr-only">{selectedPage}</span>
-              <h2 className="block font-semibold text-xl p-2">{selectedPage}</h2>
+              <h2 className="block font-semibold text-xl p-2">
+                {selectedPage}
+              </h2>
             </a>
           </div>
 
-          <div ref={profileMenuRef} className="md:flex md:items-center md:gap-12">
+          <div
+            ref={profileMenuRef}
+            className="md:flex md:items-center md:gap-12"
+          >
             <div className="md:relative md:block">
               <button
                 type="button"
@@ -84,7 +83,6 @@ const Navbar = ({ selectedPage }) => {
                     type="button"
                     className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
                     role="menuitem"
-                    onClick={handleLogout}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
