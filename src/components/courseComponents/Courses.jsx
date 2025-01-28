@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CourseForm from "./CourseForm.jsx";
-import { showData } from "../../redux-config/CourseSlice";
+import { deleteData, showData } from "../../redux-config/CourseSlice";
 import axios from "axios";
 
 const Courses = () => {
   const dispatch = useDispatch();
-  const allCourses = useSelector((state) => state.courseData.allData) 
+  const allCourses = useSelector((state) => state.courseData.allData);
   console.log("Current data:", allCourses);
   const [showModel, setShowModel] = useState(false);
   const [editCourse, setEditCourse] = useState(null);
-  
+
   const toggleModel = () => {
     setShowModel(!showModel);
     if (showModel) {
@@ -28,15 +28,28 @@ const Courses = () => {
     toggleModel();
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:9090/api/v1/course/${id}`
+      );
+      console.log(response);
+
+      dispatch(deleteData(id));
+      fetchCourses();
+      console.log("Course deleted successfully");
+    } catch (error) {
+      console.log(error); 
+    }
+  };
+
   const fetchCourses = async () => {
     try {
       const response = await axios.get("http://localhost:9090/api/v1/course");
       console.log(response.data);
-      const data = response.data.courses ||[];
+      const data = response.data.courses || [];
 
       dispatch(showData(data));
-
-
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
@@ -64,10 +77,7 @@ const Courses = () => {
                 className="fixed inset-0 pt-20 bg-gray-50 bg-opacity-50 z-50"
                 onClick={(e) => e.stopPropagation()}
               >
-                <CourseForm
-                  toggleModel={toggleModel}
-                  editCourse={editCourse}
-                />
+                <CourseForm toggleModel={toggleModel} editCourse={editCourse} />
               </div>
             )}
           </div>
@@ -80,7 +90,6 @@ const Courses = () => {
                 <table className="divide-y divide-gray-200 min-w-full">
                   <thead className="bg-yellow-400">
                     <tr className="divide-x divide-gray-200">
-                      
                       <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         ID
                       </th>
@@ -102,33 +111,40 @@ const Courses = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 table-scroll">
-                  {allCourses.length > 0 ? (
+                    {allCourses.length > 0 ? (
                       allCourses.map((course, index) => (
                         <tr key={index}>
-                         
-                          <td className="px-6 py-4 text-sm font-medium text-gray-800">
+                          <td className="px-3 py-2 text-sm font-medium text-gray-800">
                             {course.courseId}
                           </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-800">
+                          <td className="px-3 py-2 text-sm font-medium text-gray-800">
                             {course.courseName}
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-800">
+                          <td className="px-3 py-2 text-sm text-gray-800">
                             {course.courseCategory}
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-800">
+                          <td className="px-3 py-2 text-sm text-gray-800">
                             {course.courseDuration}
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-800">
+                          <td className="px-3 py-2 text-sm text-gray-800">
                             {course.courseFee}
                           </td>
-                          <td className="px-6 py-4 text-end text-sm font-medium">
-                            <div className="flex items-center">
+                          <td className="px-3 py-2 whitespace-nowrap text-sm font-medium">
+                            <div className="flex items-center gap-2 ">
                               <button
                                 type="button"
-                                className="inline-block text-base font-semibold mr-6 rounded-lg border border-transparent text-yellow-400 hover:text-yellow-600 focus:outline-none"
+                                className="inline-block px-2.5 py-1 text-base font-semibold mr-6 rounded-lg border border-transparent text-gray-800 bg-yellow-400 hover:text-gray-600 focus:outline-none"
                                 onClick={() => handleEdit(course)}
                               >
-                                <i className="fa-regular fa-pen-to-square"></i>
+                                <i className="fa-regular fa-pen-to-square"></i>{" "}
+                                edit
+                              </button>
+                              <button
+                                type="button"
+                                className="inline-block px-2.5 py-1 text-base font-semibold mr-6 rounded-lg border border-transparent text-gray-800 bg-yellow-400 hover:text-gray-600 focus:outline-none"
+                                onClick={() => handleDelete(course.courseId)}
+                              >
+                                <i className="fa-solid fa-trash"></i> delete
                               </button>
                             </div>
                           </td>

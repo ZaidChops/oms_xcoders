@@ -20,7 +20,7 @@ const EnquirySlice = createSlice({
       state.allData=action.payload;
     },
   
-    updateUser: (state, action) => {
+    updateData: (state, action) => {
       const index = state.allData.findIndex((item) => item.id === action.payload.id);
       if (index !== -1) {
         state.allData[index] = action.payload;
@@ -30,5 +30,5 @@ const EnquirySlice = createSlice({
   },
 });
 
-export const { addData, updateUser, resetEditUser, setEditUser,showData} = EnquirySlice.actions;
+export const { addData, updateData, resetEditUser, setEditUser,showData} = EnquirySlice.actions;
 export default EnquirySlice.reducer;

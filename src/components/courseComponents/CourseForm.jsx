@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addData, updateUser } from "../../redux-config/CourseSlice";
+import { addData, updateData } from "../../redux-config/CourseSlice";
 import axios from "axios";
 
 const CourseForm = ({ toggleModel, editCourse }) => {
   const [formData, setFormData] = useState({
     courseName: "",
     courseCategory: "",
-    courseFees: "",
+    courseFee: "",
     courseDiscount: "",
     courseDuration: "",
   });
@@ -30,11 +30,12 @@ const CourseForm = ({ toggleModel, editCourse }) => {
     console.log("Submitting data:", formData);
     try {
       if (editCourse) {
-        await axios.put(
+        const response = await axios.put(
           `http://localhost:9090/api/v1/course/${editCourse.courseId}`,
           formData
         );
-        dispatch(updateUser({ ...formData, id: editCourse.courseId }));
+        console.log(response)
+        dispatch(updateData({ ...formData, id: editCourse.courseId }));
       } else {
         const response = await axios.post(
           "http://localhost:9090/api/v1/course",
@@ -105,13 +106,13 @@ const CourseForm = ({ toggleModel, editCourse }) => {
 
             <div className="flex justify-between gap-2 ">
               <div>
-                <label htmlFor="courseFees">Course Fees</label>
+                <label htmlFor="courseFee">Course Fees</label>
                 <input
                   type="number"
-                  id="courseFees"
-                  name="courseFees"
+                  id="courseFee"
+                  name="courseFee"
                   placeholder="enter course fees"
-                  value={formData.courseFees}
+                  value={formData.courseFee}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 mt-2 bg-white border border-gray-200 rounded-md"
                 />

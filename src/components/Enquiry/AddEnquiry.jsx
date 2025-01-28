@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addData, updateUser } from "../../redux-config/EnquirySlice";
+import { addData, updateData } from "../../redux-config/EnquirySlice";
 import axios from "axios";
 
 const AddEnquiry = ({ toggleModel, editUser }) => {
@@ -22,6 +22,10 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
     followUp: "",
   });
 
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [courseDetails, setCourseDetails] = useState(null);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,6 +34,66 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
     }
   }, [editUser]);
 
+  useEffect(() => {
+    if (formData.courseCategory) {
+      const fetchCoursesByCategory = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(
+            `http://localhost:9090/api/v1/course/getCoursesByCategory`,
+            {
+              params: { courseCategory: formData.courseCategory },
+            }
+          );
+          console.log(response.data.courseNames);
+          setFilteredCourses(response.data.courseNames);
+        } catch (error) {
+          console.error("Error fetching filtered courses:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchCoursesByCategory();
+    } else {
+      setFilteredCourses([]);
+    }
+  }, [formData.courseCategory]);
+
+  useEffect(() => {
+    if (formData.courseName) {
+      const fetchCourseDetails = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(
+            `http://localhost:9090/api/v1/course/feeFilter`,
+            {
+              params: {
+                courseName: formData.courseName,
+                courseCategory: formData.courseCategory,
+              },
+            }
+          );
+          const { courseFee, courseDuration } = response.data.course;
+          setCourseDetails({
+            courseFee,
+            courseDuration,
+          });
+
+          setFormData((prev) => ({
+            ...prev,
+            courseFee,
+            courseDuration,
+          }));
+        } catch (error) {
+          console.error("Error fetching course details:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchCourseDetails();
+    }
+  }, [formData.courseName, formData.courseCategory]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -37,15 +101,14 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting enquiry with data:", formData); 
+    console.log("Submitting enquiry with data:", formData);
     try {
       if (editUser) {
-       
         await axios.put(
           `http://localhost:9090/api/v1/enquiry/${editUser._id}`,
           formData
         );
-        dispatch(updateUser({ ...formData, id: editUser._id }));
+        dispatch(updateData({ ...formData, id: editUser._id }));
       } else {
         const response = await axios.post(
           "http://localhost:9090/api/v1/enquiry/enquiry-form",
@@ -55,7 +118,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
         dispatch(addData(response.data));
       }
 
-      toggleModel(); 
+      toggleModel();
     } catch (error) {
       const errorMessage = error.response?.data?.message || error.message;
       console.log("Error adding/updating enquiry:", error);
@@ -67,7 +130,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
     <>
       <section className="enquiry-form">
         <div
-          className={`max-w-96 sm:max-w-xl md:max-w-4xl mx-auto mt-6 bg-white rounded-md shadow-md duration-1000`}
+          className={`max-w-96 sm:max-w-xl md:max-w-4xl mx-auto bg-white rounded-md shadow-md duration-1000`}
         >
           <div className="p-6 flex justify-between items-center gap-2 rounded-t-md bg-gradient-to-r from-orange-300 to-yellow-300">
             <h2 className="text-lg font-semibold text-gray-600 capitalize">
@@ -123,21 +186,13 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                   className="block w-full h-10 py-2 px-4 mt-2
                     text-gray-600  border rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                 >
-                  <option defaultValue="Select Category">Select Course</option>
-                  <option value="Fullstack Development">
-                    Fullstack Development (MERN/ MEAN)
-                  </option>
-                  <option value="Frontend Development (ReactJS/ AngularJS)">
-                    Frontend Development (ReactJS/ AngularJS)
-                  </option>
-                  <option value="Backend Development (ExpressJS/NodeJS)">
-                    Backend Development (ExpressJS/NodeJS)
-                  </option>
-                  <option value="Data Analytics, Data Science & Business Analytics">
-                    Data Analytics, Data Science & Business Analytics
-                  </option>
-
-                  <option value="Digital Marketing">Digital Marketing</option>
+                  <option defaultValue="Select Course">Select Course</option>
+                  {filteredCourses.map((course, index) => (
+                    <option key={index} value={course}>
+                      {course}
+                    </option>
+                  ))}
+                  {loading && <option>Loading courses...</option>}
                 </select>
               </div>
 
@@ -149,7 +204,10 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                   id="courseDuration"
                   name="courseDuration"
                   type="text"
-                  value={formData.courseDuration}
+                  readOnly
+                  value={
+                    courseDetails?.courseDuration || formData.courseDuration
+                  }
                   onChange={handleChange}
                   placeholder="enter course duration"
                   className="block w-full px-4 py-2 mt-2 text-gray-600 bg-white
@@ -164,9 +222,9 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                   id="courseFee"
                   name="courseFee"
                   type="text"
-                  disabled
+                  readOnly
                   placeholder="enter course fees"
-                  value={formData.courseFee}
+                  value={courseDetails?.courseFee || formData.courseFee}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 mt-2 text-gray-600 bg-white
                     border border-gray-200 rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-20  focus:outline-none focus:ring no-arrows"
@@ -225,7 +283,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                 <input
                   id="studentContactNo"
                   name="contact"
-                  type="text"
+                  type="number"
                   value={formData.contact}
                   onChange={handleChange}
                   placeholder="+91 | mobile number"
@@ -260,7 +318,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                 <input
                   id="yearOfPassing"
                   name="yearOfPassing"
-                  type="text"
+                  type="number"
                   placeholder="enter passing year"
                   value={formData.yearOfPassing}
                   onChange={handleChange}
@@ -364,7 +422,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                       transform bg-gradient-to-r rounded-md bg-yellow-400 hover:bg-yellow-400 focus:outline-none focus:bg-yellow-300"
                   onClick={handleSubmit}
                 >
-                  Add Enquiry
+                  {editUser ? "Edit Enquiry" : "Add Enquiry"}
                 </button>
               </div>
             </div>
