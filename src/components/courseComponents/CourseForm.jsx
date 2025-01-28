@@ -67,7 +67,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
             X
           </button>
         </div>
-        <form className="px-6 py-4" onSubmit={handleSubmit}>
+        <form className="px-6 py-4" onSubmit={handleSubmit} autoComplete="off">
           <div className="grid grid-cols-1 gap-6 text-gray-500 sm:grid-cols-1 p-1 ">
             <div>
               <label htmlFor="courseName">Course Name</label>
@@ -75,6 +75,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
                 type="text"
                 id="courseName"
                 name="courseName"
+                
                 placeholder="enter course name"
                 value={formData.courseName}
                 onChange={handleChange}
@@ -125,7 +126,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
                   id="courseDiscount"
                   name="courseDiscount"
                   placeholder="enter fees discount"
-                  value={formData.courseDiscount}
+                  value={formData.courseDiscount ?? ""}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 mt-2 bg-white border border-gray-200 rounded-md"
                 />
