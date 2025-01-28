@@ -54,7 +54,7 @@ const Enquires = () => {
 
   return (
     <section>
-      <div className="mx-4 my-2 p-4 flex flex-col border-2 shadow-sm bg-white border-gray-200 border-opacity-50 rounded-lg">
+      <div className=" mx-4 my-2 p-4 flex flex-col border-2 shadow-sm bg-white border-gray-200 border-opacity-50 rounded-lg">
         <div className="flex items-center justify-between p-2 gap-y-5">
           <div className="inline-flex justify-start items-center gap-x-2">
             <div className="m-1 p-2 rounded-md text-white bg-gray-900">
@@ -74,7 +74,7 @@ const Enquires = () => {
             </button>
             {showModel && (
               <div
-                className={`absolute -inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto`}
+                className={`fixed pt-10 -inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto`}
                 onClick={(e) => e.stopPropagation()}
               >
                 <AddEnquiry toggleModel={toggleModel} editUser={editUser} />
@@ -219,7 +219,7 @@ const Enquires = () => {
 
      
       {showPreview && (
-        <div className="absolute -inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto">
+        <div className="fixed pt-10 -inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto">
           <PreviewEnquiry togglePrevModel={togglePreview} data={previewData} />
         </div>
       )}
