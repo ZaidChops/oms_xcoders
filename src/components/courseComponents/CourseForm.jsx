@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addData, updateData } from "../../redux-config/CourseSlice";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const CourseForm = ({ toggleModel, editCourse }) => {
   const [formData, setFormData] = useState({
@@ -36,6 +37,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
         );
         console.log(response)
         dispatch(updateData({ ...formData, id: editCourse.courseId }));
+         toast.success("Course updated successfully!");
       } else {
         const response = await axios.post(
           "http://localhost:9090/api/v1/course",
@@ -44,6 +46,8 @@ const CourseForm = ({ toggleModel, editCourse }) => {
         console.log("API Response:", response.data);
 
         dispatch(addData(response.data));
+        toast.success("Course added successfully!");
+
       }
 
       toggleModel();

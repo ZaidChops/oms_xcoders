@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addData, updateData } from "../../redux-config/EnquirySlice";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 const AddEnquiry = ({ toggleModel, editUser }) => {
@@ -18,6 +19,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
     sourceOfEnquiry: "",
     yearOfPassing: "",
     referralBy: "",
+    counselorName:"",
     status: "Interested",
     followUp: "",
   });
@@ -31,6 +33,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
   useEffect(() => {
     if (editUser) {
       setFormData(editUser);
+      
     }
   }, [editUser]);
 
@@ -73,6 +76,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
               },
             }
           );
+        
           const { courseFee, courseDuration } = response.data.course;
           setCourseDetails({
             courseFee,
@@ -86,6 +90,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
           }));
         } catch (error) {
           console.error("Error fetching course details:", error);
+          toast.error("Failed to fetch course details");
         } finally {
           setLoading(false);
         }
@@ -102,6 +107,8 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting enquiry with data:", formData);
+
+  
     try {
       if (editUser) {
         await axios.put(
@@ -109,6 +116,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
           formData
         );
         dispatch(updateData({ ...formData, id: editUser._id }));
+        toast.success("Enquiry updated successfully!");
       } else {
         const response = await axios.post(
           "http://localhost:9090/api/v1/enquiry/enquiry-form",
@@ -116,6 +124,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
         );
         console.log("API Response:", response.data);
         dispatch(addData(response.data));
+        toast.success("Enquiry added successfully!");
       }
 
       toggleModel();
@@ -123,6 +132,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
       const errorMessage = error.response?.data?.message || error.message;
       console.log("Error adding/updating enquiry:", error);
       alert(`An error occurred: ${errorMessage}`);
+      toast.error("Failed to submit enquiry");
     }
   };
 
@@ -390,6 +400,23 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                   <option value="no">No</option>
                 </select>
               </div>
+
+              <div>
+                <label className="text-gray-600" htmlFor="counselorName">
+                Counselor Name 
+                </label>
+                <input
+                  id="counselorName"
+                  name="counselorName"
+                  type="text"
+                  value={formData.counselorName}
+                  onChange={handleChange}
+                  placeholder="enter councellerName"
+                  className="block w-full px-4 py-2 mt-2 text-gray-600 bg-white
+                    border border-gray-200 rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-20  focus:outline-none focus:ring no-arrows"
+                />
+              </div>
+
               <div className="sm:col-span-2">
                 <label className="text-gray-600" htmlFor="referralBy">
                   Follow up message

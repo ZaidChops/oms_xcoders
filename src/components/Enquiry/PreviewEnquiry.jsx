@@ -127,6 +127,12 @@ const PreviewEnquiry = ({ togglePrevModel, data }) => {
               </p>
             </div>
             <div className="flex justify-between items-center gap-6  border-b border-gray-200 px-4 py-1 mx-2">
+              <label className="text-sm font-medium text-gray-700">Counselor Name</label>
+              <p className="mt-1 text-base font-medium text-gray-900 ">
+                {data.counselorName}
+              </p>
+            </div>
+            <div className="flex justify-between items-center gap-6  border-b border-gray-200 px-4 py-1 mx-2">
               <label className=" text-sm font-medium text-gray-700">
                 Follow Up Message
               </label>
