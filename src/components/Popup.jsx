@@ -1,9 +1,14 @@
-export const Popup = ({ deletePopup, handleDelete, deleteId, setDeleteId }) => {
+export const Popup = ({
+  deletePopup,
+  handleDelete,
+  deleteId,
+  setDeleteId,
+  data,
+}) => {
   const changeDelete = () => {
     handleDelete(deleteId);
     deletePopup();
     setDeleteId("");
-    
   };
   return (
     <>
@@ -17,7 +22,9 @@ export const Popup = ({ deletePopup, handleDelete, deleteId, setDeleteId }) => {
             <h2
               id="modal-title"
               className="text-lg font-semibold text-gray-800"
-            >Delete Enquiry</h2>
+            >
+              Delete Enquiry
+            </h2>
             <button
               type="button"
               onClick={() => deletePopup()}
@@ -44,7 +51,7 @@ export const Popup = ({ deletePopup, handleDelete, deleteId, setDeleteId }) => {
           {/* Body */}
           <div className="p-6">
             <p className="text-gray-700">
-            Are you sure you want to delete this enquiry?
+              Are you sure you want to delete this <span>{data}</span>?
             </p>
           </div>
 

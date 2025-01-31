@@ -3,7 +3,7 @@ import Dashboard from "../components/Dashboard.jsx";
 import Enquires from "../components/Enquiry/Enquires.jsx";
 
 import Courses from "../components/courseComponents/Courses.jsx";
-import Trainers from "../components/Trainers.jsx";
+import Trainers from "../components/Trainer/Trainers.jsx";
 
 const Routers = () => {
   return (
