@@ -13,7 +13,7 @@ function App() {
       <Router>
         <Header />
         <ToastContainer
-              position="top-center"
+              position="bottom-right"
               className="mt-24 "
               autoClose={3000}
             />

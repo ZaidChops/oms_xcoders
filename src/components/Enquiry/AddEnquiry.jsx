@@ -19,7 +19,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
     sourceOfEnquiry: "",
     yearOfPassing: "",
     referralBy: "",
-    counselorName:"",
+    counselorName: "",
     status: "Interested",
     followUp: "",
   });
@@ -33,7 +33,6 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
   useEffect(() => {
     if (editUser) {
       setFormData(editUser);
-      
     }
   }, [editUser]);
 
@@ -76,7 +75,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
               },
             }
           );
-        
+
           const { courseFee, courseDuration } = response.data.course;
           setCourseDetails({
             courseFee,
@@ -108,7 +107,6 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
     e.preventDefault();
     console.log("Submitting enquiry with data:", formData);
 
-  
     try {
       if (editUser) {
         await axios.put(
@@ -403,7 +401,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
 
               <div>
                 <label className="text-gray-600" htmlFor="counselorName">
-                Counselor Name 
+                  Counselor Name
                 </label>
                 <input
                   id="counselorName"

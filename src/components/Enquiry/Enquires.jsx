@@ -1,24 +1,25 @@
-
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddEnquiry from "./AddEnquiry";
 import PreviewEnquiry from "./PreviewEnquiry";
 import { showData } from "../../redux-config/EnquirySlice";
 import axios from "axios";
+import Pagination from "../Pagination/Pagination";
+
 const Enquires = () => {
   const dispatch = useDispatch();
   const enquiries = useSelector((state) => state.enquiryData.allData);
-  console.log("Current enquiries data:", enquiries);
-
   const [showModel, setShowModel] = useState(false);
   const [editUser, setEditUser] = useState(null);
   const [previewData, setPreviewData] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const toggleModel = () => {
     setShowModel(!showModel);
     if (showModel) {
-      fetchEnquiries();
+      fetchEnquiries(currentPage);
     }
   };
 
@@ -39,23 +40,26 @@ const Enquires = () => {
     togglePreview();
   };
 
-  const fetchEnquiries = async () => {
+  const fetchEnquiries = async (page = 1) => {
     try {
-      const response = await axios.get("http://localhost:9090/api/v1/enquiry/list");
-      const data = response.data.enquiry || [];
+      const response = await axios.get(
+        `http://localhost:9090/api/v1/enquiry/list?page=${page}&limit=3`
+      );
+      const { data, totalPages } = response.data;
       dispatch(showData(data));
+      setTotalPages(totalPages);
     } catch (error) {
       console.error("Error fetching enquiries:", error);
     }
   };
 
   useEffect(() => {
-    fetchEnquiries();
-  }, []);
+    fetchEnquiries(currentPage);
+  }, [currentPage]);
 
   return (
     <section>
-      <div className=" mx-4 my-2 p-4 flex flex-col border-2 shadow-sm bg-white border-gray-200 border-opacity-50 rounded-lg">
+      <div className="mx-4 my-2 p-4 flex flex-col border-2 shadow-sm bg-white border-gray-200 border-opacity-50 rounded-lg">
         <div className="flex items-center justify-between p-2 gap-y-5">
           <div className="inline-flex justify-start items-center gap-x-2">
             <div className="m-1 p-2 rounded-md text-white bg-gray-900">
@@ -68,16 +72,13 @@ const Enquires = () => {
           <div className="flex items-center justify-end">
             <button
               type="button"
-              className="px-3 py-2 font-medium shadow-sm bg-yellow-400 text-gray-800 border rounded-lg gap-x-2 inline-flex items-center"
+              className="px-3 py-2 font-medium shadow-sm bg-yellow-400 text-gray-800 border rounded-lg"
               onClick={handleAdd}
             >
               Add Enquiry
             </button>
             {showModel && (
-              <div
-                className={`fixed pt-10 -inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto`}
-                onClick={(e) => e.stopPropagation()}
-              >
+              <div className="fixed pt-10 inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto">
                 <AddEnquiry toggleModel={toggleModel} editUser={editUser} />
               </div>
             )}
@@ -92,63 +93,36 @@ const Enquires = () => {
                 <table className="divide-y divide-gray-200 min-w-full">
                   <thead className="bg-yellow-400">
                     <tr className="divide-x divide-gray-200">
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase"
-                      >
+                      <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         ID
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase"
-                      >
+                      <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         Name
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase"
-                      >
+                      <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         Contact
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase"
-                      >
+                      <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         Course Name
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase"
-                      >
+                      <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         Course Fees
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase"
-                      >
+                      <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         Final Fees
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-end text-xs font-medium text-gray-700 uppercase"
-                      >
+                      <th className="px-6 py-3 text-end text-xs font-medium text-gray-700 uppercase">
                         Status
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase"
-                      >
+                      <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         Demo
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase"
-                      >
+                      <th className="px-6 py-3 text-start text-xs font-medium text-gray-700 uppercase">
                         Action
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200 table-scroll">
+                  <tbody className="divide-y divide-gray-200">
                     {enquiries.length > 0 ? (
                       enquiries.map((enquiry, index) => (
                         <tr key={index}>
@@ -184,14 +158,14 @@ const Enquires = () => {
                             <div className="flex items-center gap-2">
                               <button
                                 type="button"
-                                className="inline-block text-base font-semibold rounded-lg border border-transparent text-yellow-400 hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none mr-5"
+                                className="text-yellow-400 hover:text-yellow-600"
                                 onClick={() => handlePreview(enquiry)}
                               >
                                 <i className="fa-solid fa-eye"></i>
                               </button>
                               <button
                                 type="button"
-                                className="inline-block text-base font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"
+                                className="text-blue-600 hover:text-blue-800"
                                 onClick={() => handleEdit(enquiry)}
                               >
                                 <i className="fa-regular fa-pen-to-square"></i>
@@ -216,11 +190,16 @@ const Enquires = () => {
             </div>
           </div>
         </div>
+
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
       </div>
 
-     
       {showPreview && (
-        <div className="fixed pt-10 -inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto">
+        <div className="fixed pt-10 inset-0 bg-gray-50 bg-opacity-50 z-50 overflow-auto">
           <PreviewEnquiry togglePrevModel={togglePreview} data={previewData} />
         </div>
       )}

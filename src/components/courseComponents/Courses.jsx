@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import CourseForm from "./CourseForm.jsx";
 import { deleteData, showData } from "../../redux-config/CourseSlice";
 import axios from "axios";
-import { Popup } from "../popup.jsx";
+import { Popup } from "../Popup.jsx";
+import Pagination from "../Pagination/Pagination";
 
 const Courses = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,10 @@ const Courses = () => {
   const [editCourse, setEditCourse] = useState(null);
   const [togglePopup, setTogglePopup] = useState(false);
   const [deleteId, setDeleteId] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+
 
   const toggleModel = () => {
     setShowModel(!showModel);
@@ -51,21 +56,22 @@ const Courses = () => {
     }
   };
 
-  const fetchCourses = async () => {
+  const fetchCourses = async (page=1) => {
     try {
-      const response = await axios.get("http://localhost:9090/api/v1/course");
+      const response = await axios.get(`http://localhost:9090/api/v1/course?page=${page}&limit=3`);
       console.log(response.data);
-      const data = response.data.courses || [];
+      const { data, totalPages } = response.data|| [];
 
       dispatch(showData(data));
+      setTotalPages(totalPages);
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
   };
 
   useEffect(() => {
-    fetchCourses();
-  }, []);
+    fetchCourses(currentPage);
+  }, [currentPage]);
 
   return (
     <section>
@@ -122,7 +128,11 @@ const Courses = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 table-scroll">
-                    {console.log(allCourses.map(course => {console.log(course)}))}
+                    {/* {console.log(
+                      allCourses.map((course) => {
+                        console.log(course);
+                      })
+                    )} */}
 
                     {allCourses.length > 0 ? (
                       allCourses.map((course, index) => (
@@ -182,6 +192,11 @@ const Courses = () => {
             </div>
           </div>
         </div>
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
       </div>
       {togglePopup && (
         <div
@@ -193,6 +208,7 @@ const Courses = () => {
             setDeleteId={setDeleteId}
             handleDelete={handleDelete}
             deleteId={deleteId}
+            data={"course"}
           />
         </div>
       )}
