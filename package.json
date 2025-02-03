@@ -16,17 +16,27 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
+<<<<<<< HEAD
     "file-saver": "^2.0.5",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
+=======
+    "lucide-react": "^0.474.0",
+>>>>>>> 9d139b6ab5b4dbfa66707f76bb1547a535ec5b40
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
+    "react-paginate": "^8.3.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^5.3.4",
+<<<<<<< HEAD
     "react-table": "^7.8.0",
     "redux-thunk": "^3.1.0",
     "xlsx": "^0.18.5"
+=======
+    "react-toastify": "^11.0.3",
+    "redux-thunk": "^3.1.0"
+>>>>>>> 9d139b6ab5b4dbfa66707f76bb1547a535ec5b40
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

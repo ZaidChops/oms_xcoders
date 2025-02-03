@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addData, updateData } from "../../redux-config/CourseSlice";
 import axios from "axios";
+import { toast } from "react-toastify";
 
-const CourseForm = ({ toggleModel, editCourse }) => {
+const CourseForm1 = ({ toggleModel, editCourse }) => {
   const [formData, setFormData] = useState({
     courseName: "",
     courseCategory: "",
@@ -36,6 +37,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
         );
         console.log(response)
         dispatch(updateData({ ...formData, id: editCourse.courseId }));
+         toast.success("Course updated successfully!");
       } else {
         const response = await axios.post(
           "http://localhost:9090/api/v1/course",
@@ -44,6 +46,8 @@ const CourseForm = ({ toggleModel, editCourse }) => {
         console.log("API Response:", response.data);
 
         dispatch(addData(response.data));
+        toast.success("Course added successfully!");
+
       }
 
       toggleModel();
@@ -54,7 +58,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
     }
   };
   return (
-    <section className="course-form">
+    <section className="course-form fixed -space-x-0 inset-0 z-50 flex items-start justify-center bg-black bg-opacity-50 overflow-auto">
       <div className="max-w-lg mx-auto mt-6 bg-white rounded-md shadow-md">
         <div className="p-4 flex justify-between items-center gap-2 rounded-t-md bg-gradient-to-r from-orange-300 to-yellow-300">
           <h2 className="text-lg font-semibold text-gray-700 capitalize">
@@ -67,7 +71,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
             X
           </button>
         </div>
-        <form className="px-6 py-4" onSubmit={handleSubmit}>
+        <form className="px-6 py-4" onSubmit={handleSubmit} autoComplete="off">
           <div className="grid grid-cols-1 gap-6 text-gray-500 sm:grid-cols-1 p-1 ">
             <div>
               <label htmlFor="courseName">Course Name</label>
@@ -75,6 +79,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
                 type="text"
                 id="courseName"
                 name="courseName"
+                
                 placeholder="enter course name"
                 value={formData.courseName}
                 onChange={handleChange}
@@ -125,7 +130,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
                   id="courseDiscount"
                   name="courseDiscount"
                   placeholder="enter fees discount"
-                  value={formData.courseDiscount}
+                  value={formData.courseDiscount ?? ""}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 mt-2 bg-white border border-gray-200 rounded-md"
                 />
@@ -172,4 +177,4 @@ const CourseForm = ({ toggleModel, editCourse }) => {
   );
 };
 
-export default CourseForm;
+export default CourseForm1;
