@@ -14,10 +14,9 @@ export const Popup = ({
     <>
       <div
         id="modal"
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+        className="fixed inset-0 pt-10 z-50 flex items-start justify-center bg-black bg-opacity-50"
       >
         <div className="bg-white rounded-lg shadow-xl w-full max-w-lg">
-          {/* Header */}
           <div className="flex justify-between items-center py-4 px-6 border-b">
             <h2
               id="modal-title"
@@ -48,14 +47,12 @@ export const Popup = ({
             </button>
           </div>
 
-          {/* Body */}
           <div className="p-6">
             <p className="text-gray-700">
               Are you sure you want to delete this <span>{data}</span>?
             </p>
           </div>
 
-          {/* Footer */}
           <div className="flex justify-end items-center gap-4 py-4 px-6 border-t">
             <button
               type="button"

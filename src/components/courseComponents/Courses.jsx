@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import CourseForm from "./CourseForm.jsx";
+import CourseForm from "../courses/CourseForm.jsx";
 import { deleteData, showData } from "../../redux-config/CourseSlice";
 import axios from "axios";
 import { Popup } from "../Popup.jsx";

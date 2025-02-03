@@ -5,7 +5,7 @@ const initialState = {
  
 };
 
-const TrainerSlice= createSlice({
+const TrainerSlice = createSlice({
   name: 'trainerData',
   initialState,
   reducers: {
