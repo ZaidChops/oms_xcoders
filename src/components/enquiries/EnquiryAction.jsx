@@ -1,4 +1,4 @@
-import EnquiryForm1 from "./EnquiryForm1";
+import EnquiryForm from "./EnquiryForm";
 
 const EnquiryAction = ({ handleAdd, showModel, toggleModel, editUser }) => {
   return (
@@ -41,7 +41,7 @@ const EnquiryAction = ({ handleAdd, showModel, toggleModel, editUser }) => {
           Add enquiry
         </button>
         {showModel && (
-          <EnquiryForm1 toggleModel={toggleModel} editUser={editUser} />
+          <EnquiryForm toggleModel={toggleModel} editUser={editUser} />
         )}
       </div>
     </div>

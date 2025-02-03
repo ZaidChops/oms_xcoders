@@ -44,14 +44,14 @@ const TrainerForm = ({ toggleModel, isEditing }) => {
     e.preventDefault();
     console.log("Submitting data:", formData);
     try {
-      if (toggleModel) {
+      if (isEditing) {
         const response = await axios.put(
           `http://localhost:9090/api/v1/trainer/${isEditing.trainerId}`,
           formData
         );
         console.log(response);
         dispatch(updateData({ ...formData, id: isEditing.TrainerId }));
-        toast.success("Course updated successfully!");
+        toast.success("Trainer updated successfully!");
       } else {
         const response = await axios.post(
           "http://localhost:9090/api/v1/trainer",
@@ -60,7 +60,7 @@ const TrainerForm = ({ toggleModel, isEditing }) => {
         console.log("API Response:", response.data);
 
         dispatch(addData(response.data));
-        toast.success("Course added successfully!");
+        toast.success("Trainer added successfully!");
       }
 
       toggleModel();
@@ -114,7 +114,7 @@ const TrainerForm = ({ toggleModel, isEditing }) => {
                 </label>
                 <input
                   type="text"
-                  name="name"
+                  name="trainerName"
                   value={formData.trainerName}
                   onChange={handleChange}
                   required
@@ -132,7 +132,7 @@ const TrainerForm = ({ toggleModel, isEditing }) => {
                 </label>
                 <input
                   type="email"
-                  name="email"
+                  name="trainerEmail"
                   value={formData.trainerEmail}
                   onChange={handleChange}
                   required
@@ -150,7 +150,7 @@ const TrainerForm = ({ toggleModel, isEditing }) => {
                 </label>
                 <input
                   type="tel"
-                  name="contact"
+                  name="trainerContact"
                   value={formData.trainerContact}
                   onChange={handleChange}
                   required
@@ -168,13 +168,13 @@ const TrainerForm = ({ toggleModel, isEditing }) => {
                 </label>
                 <input
                   type="text"
-                  name="techstack"
+                  name="trainerTechStack"
                   value={formData.trainerTechStack}
                   onChange={handleChange}
                   required
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-400 focus:ring-yellow-300 sm:text-sm
                          px-4 py-2 border outline-none"
-                  placeholder="Enter tech stack (comma separated)"
+                  placeholder="Enter tech stack "
                 />
               </div>
 
@@ -186,7 +186,7 @@ const TrainerForm = ({ toggleModel, isEditing }) => {
                 </label>
                 <input
                   type="date"
-                  name="joiningDate"
+                  name="trainerJoiningDate"
                   value={formData.trainerJoiningDate}
                   onChange={handleChange}
                   required

@@ -407,7 +407,7 @@ const EnquiryForm1 = ({ toggleModel, editUser }) => {
                     </label>
                     <input
                       type="text"
-                      name="referral"
+                      name="referralBy"
                       value={formData.referralBy}
                       onChange={handleChange}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-400 focus:ring-yellow-400 sm:text-sm
