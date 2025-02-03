@@ -7,7 +7,7 @@ import axios from "axios";
 const Courses = () => {
   const dispatch = useDispatch();
   const allCourses = useSelector((state) => state.courseData.allData);
-  console.log("Current data:", allCourses);
+  // console.log("Current data:", allCourses);
   const [showModel, setShowModel] = useState(false);
   const [editCourse, setEditCourse] = useState(null);
 
@@ -46,7 +46,7 @@ const Courses = () => {
   const fetchCourses = async () => {
     try {
       const response = await axios.get("http://localhost:9090/api/v1/course");
-      console.log(response.data);
+      // console.log(response.data);
       const data = response.data.courses || [];
 
       dispatch(showData(data));

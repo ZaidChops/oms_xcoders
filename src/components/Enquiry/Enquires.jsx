@@ -2,17 +2,81 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AddEnquiry from "./AddEnquiry";
 import PreviewEnquiry from "./PreviewEnquiry";
-import { showData } from "../../redux-config/EnquirySlice";
+import { sortData } from "../../redux-config/EnquirySlice";
 import axios from "axios";
+import * as XLSX from "xlsx"
+import { saveAs } from "file-saver";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
 const Enquires = () => {
   const dispatch = useDispatch();
-  const enquiries = useSelector((state) => state.enquiryData.allData);
-  console.log("Current enquiries data:", enquiries);
+  const {enquiry, isLoading, isError} = useSelector((state) => state.enquiryData.allData)
+  // const enquiries = useSelector((state) => state.enquiryData.allData);
+  // console.log("Current enquiries data:", enquiry);
+  
+  const [record, setRecord] = useState([])
 
+  useEffect(() =>{
+    setRecord(enquiry)
+  },[enquiry])
+  // console.log(JSON?.parse(record),'record');
+  
   const [showModel, setShowModel] = useState(false);
   const [editUser, setEditUser] = useState(null);
   const [previewData, setPreviewData] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [searchData, setSearchData] = useState("")
+
+  // Search
+  // const filteredData = () =>{
+  //   // e.preventDefault()
+  //   enquiries.filter((enquiry) =>
+  //     enquiry.courseName.includes(searchData)
+  //   );
+  // }
+
+  const handleChange = (e) =>{
+    setSearchData(e.target.value)
+  }
+
+  // console.log(searchData)
+
+  // Excel downloader 
+  const downloadExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(enquiry);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Table Data");
+    XLSX.writeFile(workbook, "TableData.xlsx");
+  };
+
+  // CSV downloader
+  const downloadCSV = () => {
+    const csvRows = [];
+    const headers = Object.keys(enquiry[0]);
+    csvRows.push(headers.join(",")); // Add headers
+    enquiry.forEach((row) => {
+      const values = headers.map((header) => row[header]);
+      csvRows.push(values.join(","));
+    });
+    const csvString = csvRows.join("\n");
+    const blob = new Blob([csvString], { type: "text/csv" });
+    saveAs(blob, "TableData.csv");
+  };
+
+  // PDF downloader
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Table Data", 20, 10); // Title
+    const tableData = enquiry.map((row) => Object.values(row));
+    const tableHeaders = Object.keys(enquiry[0]);
+    doc.autoTable({
+      head: [tableHeaders],
+      body: tableData,
+    });
+    doc.save("TableData.pdf");
+  };
+
 
   const toggleModel = () => {
     setShowModel(!showModel);
@@ -38,19 +102,29 @@ const Enquires = () => {
     togglePreview();
   };
 
-  const fetchEnquiries = async () => {
-    try {
-      const response = await axios.get("http://localhost:9090/api/v1/enquiry/list");
-      const data = response.data.enquiry || [];
-      dispatch(showData(data));
-    } catch (error) {
-      console.error("Error fetching enquiries:", error);
-    }
-  };
+  // const fetchEnquiries = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:9090/api/v1/enquiry/list");
+  //     const data = response.data.enquiry || [];
+  //     dispatch(showData(data));
+  //   } catch (error) {
+  //     console.error("Error fetching enquiries:", error);
+  //   }
+  // };
 
   useEffect(() => {
-    fetchEnquiries();
-  }, []);
+    dispatch(sortData());
+  }, [dispatch]);
+
+  if(isLoading){
+    return <h1 className="relative top-60">Loading...</h1>
+  }
+
+  if(isError){
+    return <h1 className="relative top-60">!Error</h1>
+  }
+
+  // if (!enquiry || enquiry.length === 0) return <p>No enquiries found.</p>;
 
   return (
     <section>
@@ -58,11 +132,14 @@ const Enquires = () => {
         <div className="flex items-center justify-between p-2 gap-y-5">
           <div className="inline-flex justify-start items-center gap-x-2">
             <div className="m-1 p-2 rounded-md text-white bg-gray-900">
-              Today enquiries: {enquiries.length}
+              Today enquiries:
+               {/* {enquiries.length} */}
             </div>
             <div className="m-1 p-2 rounded-md text-white bg-cyan-500">
-              Total enquiries: {enquiries.length}
+              Total enquiries:
+               {/* {enquiries.length} */}
             </div>
+            
           </div>
           <div className="flex items-center justify-end">
             <button
@@ -83,6 +160,29 @@ const Enquires = () => {
           </div>
         </div>
         <hr className="my-4" />
+
+       <div className="flex justify-between">
+       <div className=" w-60 h-7 ml-4 mb-2 flex flex-row justify-between  ">
+          <h3 className="text-lg font-semibold">Download :-</h3>
+        <button className=" text-lg text-blue-600 "
+         onClick={downloadExcel}
+         >Excel /</button>
+        <button className=" text-lg text-blue-600 " 
+        onClick={downloadPDF}
+        > PDF /</button>
+        <button className=" text-lg text-blue-600 "
+         onClick={downloadCSV}
+         > CSV</button>
+        </div>
+
+        <form className="ml-4 mb-2 flex flex-row justify-between " role="search"
+        //  onSubmit={filteredData}
+         >
+        <input type="search" placeholder="Search" aria-label="Search" value={searchData} onChange={handleChange} />
+        {/* <input  className="form-control me-2" type="search" placeholder="Search" aria-label="Search"> */}
+        <button className="btn btn-success btn-sm" type="submit"  >Search</button>
+      </form>
+       </div>
 
         <div className="flex flex-col my-2">
           <div className="overflow-x-auto">
@@ -148,8 +248,9 @@ const Enquires = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 table-scroll">
-                    {enquiries.length > 0 ? (
-                      enquiries.map((enquiry, index) => (
+                    {
+                    /* {!record || record?.length === 0 ? ( */}
+                     { enquiry?.map((enquiry, index) => (
                         <tr key={index}>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
                             {enquiry.enquiryId}
@@ -198,8 +299,8 @@ const Enquires = () => {
                             </div>
                           </td>
                         </tr>
-                      ))
-                    ) : (
+                      ))}
+                    {/* ) : (
                       <tr>
                         <td
                           colSpan="8"
@@ -208,7 +309,8 @@ const Enquires = () => {
                           No enquiries found.
                         </td>
                       </tr>
-                    )}
+                    ) */}
+                    {/* } */}
                   </tbody>
                 </table>
               </div>

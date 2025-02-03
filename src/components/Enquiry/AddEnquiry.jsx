@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addData, updateData } from "../../redux-config/EnquirySlice";
+// import { addData, updateData } from "../../redux-config/EnquirySlice";
 import axios from "axios";
+import { addData } from "../../redux-config/EnquirySlice";
 
 const AddEnquiry = ({ toggleModel, editUser }) => {
   const [formData, setFormData] = useState({
@@ -28,71 +29,71 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (editUser) {
-      setFormData(editUser);
-    }
-  }, [editUser]);
+  // useEffect(() => {
+  //   if (editUser) {
+  //     setFormData(editUser);
+  //   }
+  // }, [editUser]);
 
-  useEffect(() => {
-    if (formData.courseCategory) {
-      const fetchCoursesByCategory = async () => {
-        setLoading(true);
-        try {
-          const response = await axios.get(
-            `http://localhost:9090/api/v1/course/getCoursesByCategory`,
-            {
-              params: { courseCategory: formData.courseCategory },
-            }
-          );
-          console.log(response.data.courseNames);
-          setFilteredCourses(response.data.courseNames);
-        } catch (error) {
-          console.error("Error fetching filtered courses:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchCoursesByCategory();
-    } else {
-      setFilteredCourses([]);
-    }
-  }, [formData.courseCategory]);
+  // useEffect(() => {
+  //   if (formData.courseCategory) {
+  //     const fetchCoursesByCategory = async () => {
+  //       setLoading(true);
+  //       try {
+  //         const response = await axios.get(
+  //           `http://localhost:9090/api/v1/course/getCoursesByCategory`,
+  //           {
+  //             params: { courseCategory: formData.courseCategory },
+  //           }
+  //         );
+  //         console.log(response.data.courseNames);
+  //         setFilteredCourses(response.data.courseNames);
+  //       } catch (error) {
+  //         console.error("Error fetching filtered courses:", error);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     };
+  //     fetchCoursesByCategory();
+  //   } else {
+  //     setFilteredCourses([]);
+  //   }
+  // }, [formData.courseCategory]);
 
-  useEffect(() => {
-    if (formData.courseName) {
-      const fetchCourseDetails = async () => {
-        setLoading(true);
-        try {
-          const response = await axios.get(
-            `http://localhost:9090/api/v1/course/feeFilter`,
-            {
-              params: {
-                courseName: formData.courseName,
-                courseCategory: formData.courseCategory,
-              },
-            }
-          );
-          const { courseFee, courseDuration } = response.data.course;
-          setCourseDetails({
-            courseFee,
-            courseDuration,
-          });
+  // useEffect(() => {
+  //   if (formData.courseName) {
+  //     const fetchCourseDetails = async () => {
+  //       setLoading(true);
+  //       try {
+  //         const response = await axios.get(
+  //           `http://localhost:9090/api/v1/course/feeFilter`,
+  //           {
+  //             params: {
+  //               courseName: formData.courseName,
+  //               courseCategory: formData.courseCategory,
+  //             },
+  //           }
+  //         );
+  //         const { courseFee, courseDuration } = response.data.course;
+  //         setCourseDetails({
+  //           courseFee,
+  //           courseDuration,
+  //         });
 
-          setFormData((prev) => ({
-            ...prev,
-            courseFee,
-            courseDuration,
-          }));
-        } catch (error) {
-          console.error("Error fetching course details:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchCourseDetails();
-    }
-  }, [formData.courseName, formData.courseCategory]);
+  //         setFormData((prev) => ({
+  //           ...prev,
+  //           courseFee,
+  //           courseDuration,
+  //         }));
+  //       } catch (error) {
+  //         console.error("Error fetching course details:", error);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     };
+  //     fetchCourseDetails();
+  //   }
+  // }, [formData.courseName, formData.courseCategory]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -102,28 +103,29 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting enquiry with data:", formData);
-    try {
-      if (editUser) {
-        await axios.put(
-          `http://localhost:9090/api/v1/enquiry/${editUser._id}`,
-          formData
-        );
-        dispatch(updateData({ ...formData, id: editUser._id }));
-      } else {
-        const response = await axios.post(
-          "http://localhost:9090/api/v1/enquiry/enquiry-form",
-          formData
-        );
-        console.log("API Response:", response.data);
-        dispatch(addData(response.data));
-      }
+    dispatch(addData(formData))
+    // try {
+    //   if (editUser) {
+    //     await axios.put(
+    //       `http://localhost:9090/api/v1/enquiry/${editUser._id}`,
+    //       formData
+    //     );
+    //     dispatch(updateData({ ...formData, id: editUser._id }));
+    //   } else {
+    //     const response = await axios.post(
+    //       "http://localhost:9090/api/v1/enquiry/enquiry-form",
+    //       formData
+    //     );
+    //     console.log("API Response:", response.data);
+    //     dispatch(addData(response.data));
+    //   }
 
-      toggleModel();
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || error.message;
-      console.log("Error adding/updating enquiry:", error);
-      alert(`An error occurred: ${errorMessage}`);
-    }
+    //   toggleModel();
+    // } catch (error) {
+    //   const errorMessage = error.response?.data?.message || error.message;
+    //   console.log("Error adding/updating enquiry:", error);
+    //   alert(`An error occurred: ${errorMessage}`);
+    // }
   };
 
   return (
@@ -187,12 +189,12 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                     text-gray-600  border rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                 >
                   <option defaultValue="Select Course">Select Course</option>
-                  {filteredCourses.map((course, index) => (
+                  {/* {filteredCourses.map((course, index) => (
                     <option key={index} value={course}>
                       {course}
                     </option>
                   ))}
-                  {loading && <option>Loading courses...</option>}
+                  {loading && <option>Loading courses...</option>} */}
                 </select>
               </div>
 
@@ -205,9 +207,9 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                   name="courseDuration"
                   type="text"
                   readOnly
-                  value={
-                    courseDetails?.courseDuration || formData.courseDuration
-                  }
+                  // value={
+                  //   courseDetails?.courseDuration || formData.courseDuration
+                  // }
                   onChange={handleChange}
                   placeholder="enter course duration"
                   className="block w-full px-4 py-2 mt-2 text-gray-600 bg-white
@@ -224,7 +226,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                   type="text"
                   readOnly
                   placeholder="enter course fees"
-                  value={courseDetails?.courseFee || formData.courseFee}
+                  // value={courseDetails?.courseFee || formData.courseFee}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 mt-2 text-gray-600 bg-white
                     border border-gray-200 rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:ring-opacity-20  focus:outline-none focus:ring no-arrows"
@@ -270,6 +272,7 @@ const AddEnquiry = ({ toggleModel, editUser }) => {
                   name="email"
                   type="text"
                   placeholder="enter email id"
+                  autoComplete="off"
                   value={formData.email}
                   onChange={handleChange}
                   className="block w-full px-4 py-2 mt-2 text-gray-600 bg-white border border-gray-200 rounded-md focus:border-yellow-400 focus:ring-yellow-300

@@ -24,9 +24,9 @@ const Header = () => {
   return (
     <>
       <header>
-        <Navbar
+        {/* <Navbar
           selectedPage={selectedPage}
-        />
+        /> */}
         <SideBar
           navOpen={navOpen}
           setNavOpen={setNavOpen}
