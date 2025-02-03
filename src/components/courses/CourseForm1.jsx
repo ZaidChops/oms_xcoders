@@ -4,7 +4,7 @@ import { addData, updateData } from "../../redux-config/CourseSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const CourseForm = ({ toggleModel, editCourse }) => {
+const CourseForm1 = ({ toggleModel, editCourse }) => {
   const [formData, setFormData] = useState({
     courseName: "",
     courseCategory: "",
@@ -58,7 +58,7 @@ const CourseForm = ({ toggleModel, editCourse }) => {
     }
   };
   return (
-    <section className="course-form">
+    <section className="course-form fixed -space-x-0 inset-0 z-50 flex items-start justify-center bg-black bg-opacity-50 overflow-auto">
       <div className="max-w-lg mx-auto mt-6 bg-white rounded-md shadow-md">
         <div className="p-4 flex justify-between items-center gap-2 rounded-t-md bg-gradient-to-r from-orange-300 to-yellow-300">
           <h2 className="text-lg font-semibold text-gray-700 capitalize">
@@ -177,4 +177,4 @@ const CourseForm = ({ toggleModel, editCourse }) => {
   );
 };
 
-export default CourseForm;
+export default CourseForm1;
